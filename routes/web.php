@@ -47,7 +47,7 @@ Route::prefix('pengelola')->group(function () {
 Route::prefix('admin')->group(function () {
     Route::get('/analytics', [LoadController::class, 'admingetanalytics'])->name('admin.analytics')->middleware('adminonly');
     Route::get('/transaksi', [LoadController::class, 'admingettransaksi'])->name('admin.transaksi')->middleware('adminonly');
-    Route::post('/transaksi', [CrudController::class, 'adminbatalkanreservasi'])->name('admin.batalkan');
+    Route::post('/transaksi', [CrudController::class, 'adminbatalkanreservasi'])->name('admin.selesai');
     Route::get('/riwayat', [LoadController::class, 'admingetriwayat'])->name('admin.riwayat')->middleware('adminonly');
     Route::get('/user', [LoadController::class, 'admingetuser'])->name('admin.user')->middleware('adminonly');
     Route::get('/pengelola', [LoadController::class, 'admingetpengelola'])->name('admin.pengelola')->middleware('adminonly');
@@ -59,7 +59,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::prefix('user')->group(function () {
         Route::get('/', fn () => redirect()->route('user.search'))->name('user.index');
         Route::get('/search', [LoadController::class, 'usergetreservasi'])->name('user.search');
-        Route::post('/search', [CrudController::class, 'userbatalkanreservasi'])->name('user.batalkan');
+        Route::post('/search', [CrudController::class, 'userselesaikanreservasi'])->name('user.selesaikan');
         Route::get('/history', [LoadController::class, 'usergethistory'])->name('user.history');
         Route::get('/info', [LoadController::class, 'updateprofilepage'])->name('user.info')->middleware('logedonly');
         Route::post('/info', [CrudController::class, 'doupdateprofile'])->name('user.info')->middleware('logedonly');

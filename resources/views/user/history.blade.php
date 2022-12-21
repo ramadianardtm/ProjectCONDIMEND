@@ -27,7 +27,7 @@
                 <p class="truncate">Rp {{$pd->biayatotal}}</p>
             </div>
         </div>
-    </div>
+    </div>  
     @endif
     @endforeach
     

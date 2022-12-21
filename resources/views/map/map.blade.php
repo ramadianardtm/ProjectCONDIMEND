@@ -16,7 +16,6 @@
         <div class="z-1000 absolute top-4 left-10 w-auto">
             <form action="" method="post">
                 <input type="text" autocomplete="off" id="keyword" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange focus:border-orange focus:outline-none block w-96 py-5 px-3 text-center dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Lokasi, Kode Pos, ...">
-                <button class="btn" type="submit" name="cari" id="tombol-cari">Cari</button>
             </form>
             @foreach($parkir as $pr)
             <div id="container">
@@ -55,7 +54,6 @@
     </div>
     <script>
         var keyword = document.getElementById('keyword');
-        var tombolCari = document.getElementById('tombol-cari');
         var container = document.getElementById('container');
 
         keyword.addEventListener('keyup', function() {

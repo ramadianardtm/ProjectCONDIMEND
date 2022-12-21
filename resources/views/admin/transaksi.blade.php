@@ -83,7 +83,7 @@
                         <td style="vertical-align: middle;">Rp {{$tr->biayatotal}}</td>
                         <td>
                             <input type="hidden" id="slotsekarang" name="slotsekarang" value="{{$tr->slot}}">
-                            <form action="{{ route('admin.batalkan') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('admin.selesai') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" id="id" name="id" value="{{$tr->id}}">
                                 <input type="hidden" id="parkir_id" name="parkir_id" value="{{$tr->parkir_id}}">

@@ -77,15 +77,17 @@ class CrudController extends Controller
 
     function pengelolaupdatestatus(Request $request)
     {
-
-        $users = User::find(Auth::user()->id);
-        $users->saldo = $request->saldo;
-
+        $request->validate([
+            'saldo' => 'required',
+        ]);
         $parkir = RegParkir::find($request->parkir_id);
         $parkir->slot = $request->slot;
 
         $reserves = reservasi::find($request->id);
         $reserves->status = $request->status;
+
+        $users = User::find(Auth::user()->id);
+        $users->saldo = $request->saldo;
         
         $reserves->info = $request->info;
 
@@ -96,7 +98,7 @@ class CrudController extends Controller
         return redirect()->route('pengelola.dashboard');
     }
 
-    function userbatalkanreservasi(Request $request)
+    function userselesaikanreservasi(Request $request)
     {
 
         $reserves = reservasi::find($request->id);

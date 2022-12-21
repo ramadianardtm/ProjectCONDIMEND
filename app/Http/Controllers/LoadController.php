@@ -139,7 +139,7 @@ class LoadController extends Controller
 
         return view('admin.user')->with('data', $data);
     }
-
+    
     function admingetpengelola()
     {
         $data = User::all();

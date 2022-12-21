@@ -51,27 +51,30 @@
             </div>
         </div>
         <div class="mt-2 flex justify-between items-start">
-            <div class="flex justify-between items-center w-4/5 px-20 bg-grayBackground py-3 rounded-lg mr-3">
-                <p>Durasi Tersisa</p>
-                <p class="durasisisa" id="durasisisa"></p>
-            </div>
-            <form action="{{ route('user.batalkan') }}" method="post" enctype="multipart/form-data">
+                <div class="contain flex justify-between items-center w-100 px-20 py-3 bg-green rounded-lg mr-3">
+                    <p>Durasi Tersisa</p>
+                    <p class="durasisisa" id="durasisisa"></p>
+                </div>
+            <form action="{{ route('user.selesaikan') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" id="id" name="id" value="{{$pd->id}}">
                 <input type="hidden" id="info" name="info" value="nonaktif">
-                <button type="submit" class="bg-red text-center py-3 rounded-lg" style="cursor: pointer;width:130px">
-                    Batalkan
-                </button>
+                <div class="tombolselesai" style="display: none;">
+                    <button type="submit" class="bg-orange text-center py-3 rounded-lg" style="cursor: pointer;width:130px">
+                        Selesai
+                    </button>
+                </div>
+                <div class="tombolbatal" style="display: none;">
+                    <button type="submit" class="bg-red text-center py-3 rounded-lg" style="cursor: pointer;width:130px">
+                        Batalkan
+                    </button>
+                </div>
             </form>
-
         </div>
-
-        @endif
-        @endforeach
-
-        @endif
-
     </div>
+    @endif
+    @endforeach
+    @endif
     <script>
         var days;
         var hours;
@@ -81,28 +84,41 @@
         class Test {
             constructor() {}
 
+
             Call(checkindate, checkouttime, checkintime, checkoutdate, i) {
+                var waktusekarang = new Date().getTime();
                 var now = new Date(checkindate + " " + checkintime).getTime();
                 var countDownDate = new Date(checkoutdate + " " + checkouttime).getTime();
-                var x = setInterval(function() {
-                    //Tabel Atas
-                    // var now = new Date().getTime();
+                if (now <= waktusekarang) {
+                    var x = setInterval(function() {
+                        //Tabel Atas
+                        var now = new Date().getTime();
+                        //now += 4;
 
-                    now += 4;
-
-                    var distance = countDownDate - now;
-                    days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                    if (distance < 0) {
-                        clearInterval(x);
-                        document.getElementsByClassName("durasisisa")[i].innerHTML = "DONE";
-                    } else {
-                        document.getElementsByClassName("durasisisa")[i].innerHTML = hours + ":" +
-                            minutes + ":" + seconds;
-                    }
-                }, 1);
+                        var distance = countDownDate - now;
+                        days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                        hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                        if (distance < 0) {
+                            clearInterval(x);
+                            document.getElementsByClassName("durasisisa")[i].innerHTML = "DONE";
+                            document.getElementsByClassName("tombolselesai")[i].style.display = "block";
+                            document.getElementsByClassName("info")[i].innerHTML = "nonaktif";
+                            
+                        } else {
+                            document.getElementsByClassName("durasisisa")[i].innerHTML = hours + ":" +
+                                minutes + ":" + seconds;
+                        }
+                    }, 1);
+                } else if (waktusekarang > now) {
+                    document.getElementsByClassName("durasisisa")[i].innerHTML = "DONE";
+                    document.getElementsByClassName("tombolselesai")[i].style.display = "block";
+                } else if (waktusekarang < now) {
+                    document.getElementsByClassName("contain")[i].style.background = "#DDDDDD";
+                    document.getElementsByClassName("durasisisa")[i].innerHTML = "WAITING";
+                    document.getElementsByClassName("tombolbatal")[i].style.display = "block";
+                }
             }
         }
 

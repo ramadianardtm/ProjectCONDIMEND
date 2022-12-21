@@ -29,6 +29,9 @@
 </head>
 
 <body>
+    <?php
+
+    use App\Models\User; ?>
     <div class="w-10/12 ml-3 bg-white border border-gray-200 rounded-2xl shadow-md max-h-80vh overflow-auto p-4">
         <div class="row" style="justify-content: space-between;">
             <div class="col-sm-3 d-flex ml-4 bg-white border border-gray-200 shadow-md overflow-auto" style="height:70px;align-items:center;border-radius:10px">
@@ -48,7 +51,9 @@
         <br>
         <p class="col-sm-12 text-blueDark text-xl mt-2" style="font-size: 25px;">Katalog User</p>
         <div class="col-sm-12 tablestart">
-            <input type="text" id="name" class="form-control" placeholder="Cari User" name="name">
+            <form action="" method="post">
+                <input type="text" autocomplete="off" id="keyword" class="form-control" placeholder="Cari User" name="name">
+            </form>
         </div>
         @if ($data->count() == 0)
         <div class="text-center" style="padding: 60px;margin-bottom:50px;">
@@ -57,7 +62,7 @@
             <h5 style="margin-top: 20px;font-weight:bold;">Tidak ada pengguna!</h5>
         </div>
         @else
-        <div class="col-sm-12 tablestart">
+        <div id="container" class="col-sm-12 tablestart">
             <table class="table">
                 <thead>
                 </thead>
@@ -83,6 +88,7 @@
     </div>
     </div>
 </body>
+
 
 </html>
 @endsection

@@ -263,25 +263,33 @@
         Call(checkindate, checkouttime, checkintime, checkoutdate, i) {
             var now = new Date(checkindate + " " + checkintime).getTime();
             var countDownDate = new Date(checkoutdate + " " + checkouttime).getTime();
-            var x = setInterval(function() {
-                //Tabel Atas
-                // var now = new Date().getTime();
+            var waktusekarang = new Date().getTime();
+        
+            if (now <= waktusekarang) {
+                var x = setInterval(function() {
+                    //Tabel Atas
+                     var now = new Date().getTime();
 
-                now += 4;
+                    // now += 4;
 
-                var distance = countDownDate - now;
-                days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                if (distance < 0) {
-                    clearInterval(x);
-                    document.getElementsByClassName("durasisisa")[i].innerHTML = "DONE";
-                } else {
-                    document.getElementsByClassName("durasisisa")[i].innerHTML = hours + ":" +
-                        minutes + ":" + seconds;
-                }
-            }, 1);
+                    var distance = countDownDate - now;
+                    days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    if (distance < 0) {
+                        clearInterval(x);
+                        document.getElementsByClassName("durasisisa")[i].innerHTML = "DONE";
+                    } else {
+                        document.getElementsByClassName("durasisisa")[i].innerHTML = hours + ":" +
+                            minutes + ":" + seconds;
+                    }
+                }, 1);
+            }else if(waktusekarang > now){
+                document.getElementsByClassName("durasisisa")[i].innerHTML = "DONE";
+            }else if (waktusekarang < now){
+                document.getElementsByClassName("durasisisa")[i].innerHTML = "WAITING";
+            }
         }
     }
 
