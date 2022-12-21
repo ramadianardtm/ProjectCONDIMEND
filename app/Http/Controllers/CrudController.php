@@ -1,0 +1,125 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\RegParkir;
+use App\Models\reservasi;
+use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
+
+class CrudController extends Controller
+{
+    function doupdateprofile(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|max:255',
+            'password' => 'required',
+        ]);
+
+        $user = User::find($request->id);
+        $user->name = $request->name;
+        $user->password = bcrypt($request->password);
+        $user->save();
+        return redirect('user.info');
+    }
+
+    function doupdateprofilepengelola(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|max:255',
+            'password' => 'required',
+        ]);
+
+        $user = User::find($request->id);
+        $user->name = $request->name;
+        $user->password = bcrypt($request->password);
+        $user->save();
+        return redirect('pengelola.profile');
+    }
+
+
+    function doupdateparkir(Request $request)
+    {
+        
+        $parkir=RegParkir::where('user_id', Auth::user()->id)->first();
+        $request->validate([
+            'name' => 'required|max:255',
+            'slot' => 'required|integer',
+            'slotmaksimal' => 'required|integer',
+            'biaya' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
+            'lokasi' => 'required',
+        ]);
+        if ($request->image) {
+            $image = str_replace(' ', '-', $request->name) . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->image->storeAs(
+                '\public\\',
+                $image
+            );
+
+            $parkir->image = $image;
+        }
+
+        $parkir->name = $request->name;
+        $parkir->slot = $request->slot;
+        $parkir->slotmaksimal = $request->slotmaksimal;
+        $parkir->biaya = $request->biaya;
+        $parkir->latitude = $request->latitude;
+        $parkir->longitude = $request->longitude;
+        $parkir->lokasi = $request->lokasi;
+        $parkir->save();
+
+        return redirect()->route('pengelola.dashboard');
+    }
+
+    function pengelolaupdatestatus(Request $request)
+    {
+
+        $users = User::find(Auth::user()->id);
+        $users->saldo = $request->saldo;
+
+        $parkir = RegParkir::find($request->parkir_id);
+        $parkir->slot = $request->slot;
+
+        $reserves = reservasi::find($request->id);
+        $reserves->status = $request->status;
+        
+        $reserves->info = $request->info;
+
+        $reserves->save();
+        $users->save();
+        $parkir->save();
+
+        return redirect()->route('pengelola.dashboard');
+    }
+
+    function userbatalkanreservasi(Request $request)
+    {
+
+        $reserves = reservasi::find($request->id);
+        $reserves->info = $request->info;
+
+        $reserves->save();
+
+        return redirect()->route('user.search');
+    }
+
+    function adminbatalkanreservasi(Request $request)
+    {
+
+        $parkir = RegParkir::find($request->parkir_id);
+        $parkir->slot = $request->slot;
+
+        $reserves = reservasi::find($request->id);
+        $reserves->info = $request->info;
+
+        $reserves->save();
+        $parkir->save();
+
+        return redirect()->route('admin.transaksi');
+    }
+
+}
