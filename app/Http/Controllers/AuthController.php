@@ -113,7 +113,7 @@ class AuthController extends Controller
         $reservasi->save();
         $users->save();
 
-        return redirect()->route('map.map')->with('success', 'Registrasi berhasil.');
+        return redirect()->route('user.search')->with('success', 'Registrasi berhasil.');
     }
 
     public function login(Request $request)
