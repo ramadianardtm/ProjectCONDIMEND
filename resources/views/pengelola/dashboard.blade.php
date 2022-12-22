@@ -37,6 +37,56 @@
     <?php
 
     use Illuminate\Support\Facades\Auth; ?>
+    <!-- Popup modal Filter -->
+    <div class="modal fade bd-example-modal-lg" id="topupmodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <?php
+                $user_infos = App\Models\User::find(Auth::user()->id); ?>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Tarik Saldo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 style="font-weight: medium; font-size:18px;">Masukkan Jumlah Tarik</h4>
+                    <input type="hidden" id="saldouser" name="saldouser" value="{{$user_infos->saldo}}">
+                    <form action="{{ route('pengelola.topup') }}" method="POST">
+                        @csrf
+                        <br>
+
+                        <div class="row mb-5" style="margin-top: -20px; padding:10px;">
+                            <div class="container-fluid">
+                                <div class="form-group">
+                                    <div class="mb-3">
+                                        <input type="hidden" value="{{ $user_infos->id }}" name="id">
+                                        <label for="formGroupExampleInput" class="form-label">Jumlah Tarik</label>
+                                        <input type="number" class="form-control" id="saldotarik" name="saldotarik" placeholder="Masukkan Jumlah Saldo">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="formGroupExampleInput2" class="form-label">Tujuan Penarikkan</label>
+                                        <select name="metode" id="metode" style="width: 100%;border:solid 1px #ACB8C2;border-radius:6px;padding-left:10px;padding-right:10px;">
+                                            <option value="dana">Dana</option>
+                                            <option value="gopay">Gopay</option>
+                                            <option value="ovo">Ovo</option>
+                                            <option value="shopeepay">ShopeePay</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+                <div class="modal-footer mt-2">
+                    <button type="submit" onclick="tes()" class="focus:outline-none text-blueDark w-30 mt-2 bg-orange hover:bg-orange font-bold rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900" title="Top Up">Tarik Saldo</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Popup modal end -->
     <div class="w-7/12 ml-3 bg-white border border-gray-200 rounded-2xl shadow-md max-h-80vh overflow-auto p-4">
         <div class="row">
             <p class="col text-blueDark text-xl" style="font-size: 25px;">Pelanggan Pending</p>
@@ -57,36 +107,36 @@
                         @foreach ($reservasis as $pd)
 
                         @if($pd->status == 'unconfirmed' && $pd->info == 'belummulai' )
-
-                        <?php $user_info = App\Models\User::find($pd->user_id); ?>
-                        <tr id="sid{{ $pd->id }}" class="bg-white border border-gray-200 rounded-2xl shadow-md overflow-auto">
-                            <td><i class="fa-solid fa-user" style="font-size: 30px;padding-left:1px;"></i><br>
-                                <p class="cdwn" style="font-size:small;"></p>
-                            </td>
-                            <td>{{ $user_info->name }}</td>
-                            <td>{{$pd->checkintime}}-{{$pd->checkouttime}} ({{$pd->lamaparkir}} jam)
-                                <br>Rp {{$pd->biayatotal}}
-                            </td>
-                            <p class="td1" style="display: none;">{{$pd->checkintime}}</p>
-                            <p class="date1" style="display: none;">{{$pd->checkindate}}</p>
-                            <input type="hidden" id="biayatotal" name="biayatotal" value="{{$pd->biayatotal}}">
-                            <input type="hidden" id="slotsekarang" name="slotsekarang" value="{{$pd->slot}}">
-                            <p class="tdout" style="display: none;">{{$pd->checkindate}}</p>
-                            <input type="hidden" id="saldosekarang" name="saldosekarang" value="{{ $pengelola_info->saldo }}"></input>
-                            <form action="{{ route('pengelola.update') }}" method="post" enctype="multipart/form-data">
-                                @csrf
-                                <input type="hidden" id="id" name="id" value="{{$pd->id}}">
-                                <input type="hidden" id="parkir_id" name="parkir_id" value="{{$pd->parkir_id}}">
-                                <input type="hidden" id="status" name="status" value="confirmed">
-                                <input type="hidden" id="saldo" name="saldo">
-                                <input type="hidden" id="slot" name="slot">
-                                <input type="hidden" id="info" name="info" value="aktif">
-                                <td>
-                                    <button class="btn btn-edit mx-2" type="submit" href="">Terima</button>
+                        <div id="aselole" class="aselole">
+                            <?php $user_info = App\Models\User::find($pd->user_id); ?>
+                            <tr id="sid{{ $pd->id }}" class="bg-white border border-gray-200 rounded-2xl shadow-md overflow-auto">
+                                <td><i class="fa-solid fa-user" style="font-size: 30px;padding-left:1px;"></i><br>
+                                    <p class="cdwn" style="font-size:small;"></p>
                                 </td>
-                            </form>
-                        </tr>
-
+                                <td>{{ $user_info->name }}</td>
+                                <td>{{$pd->checkintime}}-{{$pd->checkouttime}} ({{$pd->lamaparkir}} jam)
+                                    <br>Rp {{$pd->biayatotal}}
+                                </td>
+                                <p class="td1" style="display: none;">{{$pd->checkintime}}</p>
+                                <p class="date1" style="display: none;">{{$pd->checkindate}}</p>
+                                <input type="hidden" class="biayatotal" id="biayatotal" name="biayatotal" value="{{$pd->biayatotal}}">
+                                <input type="hidden" class="slotsekarang" id="slotsekarang" name="slotsekarang" value="{{$pd->slot}}">
+                                <p class="tdout" style="display: none;">{{$pd->checkindate}}</p>
+                                <input type="hidden" class="saldosekarang" id="saldosekarang" name="saldosekarang" value="{{ $pengelola_info->saldo }}"></input>
+                                <form action="{{ route('pengelola.update') }}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="hidden" id="id" name="id" value="{{$pd->id}}">
+                                    <input type="hidden" id="parkir_id" name="parkir_id" value="{{$pd->parkir_id}}">
+                                    <input type="hidden" id="status" name="status" value="confirmed">
+                                    <input type="hidden" class="saldo" id="saldo" name="saldo">
+                                    <input type="hidden" class="slot" id="slot" name="slot">
+                                    <input type="hidden" id="info" name="info" value="aktif">
+                                    <td>
+                                        <button class="btn btn-edit mx-2" type="submit" href="">Terima</button>
+                                    </td>
+                                </form>
+                            </tr>
+                        </div>
                         @endif
 
                         @endforeach
@@ -180,11 +230,49 @@
 
         </div>
 
-        <button class="btn btn-edit w-100 mt-3" type="button" href="">Tarik Saldo</button>
+        <button class="btn btn-edit w-100 mt-3" data-toggle="modal" data-target="#topupmodal" type="button" href="">Tarik Saldo</button>
 
     </div>
 </body>
 <script>
+        for (var i = 0; i < document.getElementsByClassName('aselole').length; i++) {
+            var y = document.getElementsByClassName('slotsekarang')[i].value;
+            var a = document.getElementsByClassName('saldosekarang')[i].value;
+            var b = document.getElementsByClassName('biayatotal')[i].value;
+            console.log(document.getElementsByClassName('aselole').length);
+            console.log(y);
+            console.log(a);
+            console.log(b);
+            var slotnow = parseInt(y);
+            var saldoadmin = parseInt(a);
+            var totalbiaya = parseInt(b);
+
+            var saldosekarang = saldoadmin + totalbiaya;
+            var sisa_slot = (slotnow - 1);
+            console.log(saldosekarang);
+            console.log(sisa_slot);
+            document.getElementsByClassName("slot")[i].value = sisa_slot;
+            document.getElementsByClassName("saldo")[i].value = saldosekarang;
+    }
+</script>
+<script>
+    function tes() {
+        var saldoskrg = document.getElementById('saldouser').value;
+        var inputsaldo = document.getElementById('saldotarik').value;
+
+        console.log(saldoskrg);
+        console.log(inputsaldo);
+
+        var saldonow = parseInt(saldoskrg);
+        var saldoskrg = parseInt(inputsaldo);
+
+        var saldonew = (saldonow - saldoskrg);
+        console.log('saldobaru' + saldonew);
+
+        document.querySelector("[name=saldotarik]").value = saldonew;
+    }
+</script>
+<!-- <script>
     var y = document.getElementById('slotsekarang').value;
 
     var slotnow = parseInt(y);
@@ -204,7 +292,7 @@
 
     document.querySelector("[name=saldo]").value = total_saldo;
     console.log(total_saldo);
-</script>
+</script> -->
 <script>
     var days;
     var hours;
@@ -264,11 +352,11 @@
             var now = new Date(checkindate + " " + checkintime).getTime();
             var countDownDate = new Date(checkoutdate + " " + checkouttime).getTime();
             var waktusekarang = new Date().getTime();
-        
+
             if (now <= waktusekarang) {
                 var x = setInterval(function() {
                     //Tabel Atas
-                     var now = new Date().getTime();
+                    var now = new Date().getTime();
 
                     // now += 4;
 
@@ -285,9 +373,9 @@
                             minutes + ":" + seconds;
                     }
                 }, 1);
-            }else if(waktusekarang > now){
+            } else if (waktusekarang > now) {
                 document.getElementsByClassName("durasisisa")[i].innerHTML = "DONE";
-            }else if (waktusekarang < now){
+            } else if (waktusekarang < now) {
                 document.getElementsByClassName("durasisisa")[i].innerHTML = "WAITING";
             }
         }

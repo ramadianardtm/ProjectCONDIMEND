@@ -12,7 +12,7 @@
 <body>
     <div class="flex justify-center">
         <div class="w-1/2 h-screen py-11 px-24 flex flex-col items-center justify-center flex-nowrap">
-            <i class="fas fa-chevron-left text-4xl self-start" onclick="history.back()"></i>
+            <i class="fas fa-chevron-left text-4xl self-start" style="cursor: pointer;" onclick="history.back()"></i>
             <p class="text-center text-4xl mb-11">Register User</p>
             @if ($errors->any())
             <div class="flex w-full p-4 mb-4 text-sm text-white bg-red-700 rounded-lg self-start" role="alert">

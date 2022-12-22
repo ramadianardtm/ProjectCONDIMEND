@@ -67,9 +67,9 @@
                     <form action="{{ route('map.searchmap') }}" method="post">
                         @csrf
 
-                        <input type="text" autocomplete="off" name="search" id="search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange focus:border-orange focus:outline-none block w-96 py-5 px-3 text-center dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Lokasi, Kode Pos, ...">
+                        <input type="text" autocomplete="off" name="search" id="search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange focus:border-orange focus:outline-none block w-full py-5 px-3 text-center dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Lokasi, Kode Pos, ...">
 
-                        <button type="submit" class="mt-1 focus:outline-none text-white w-full bg-orange hover:bg-orange font-bold rounded-lg text-l mr-2 mb-2 p-2 dark:focus:ring-yellow-900">Cari</button>
+                        <button type="submit" class="mt-1 focus:outline-none text-white w-full bg-orange hover:bg-orange font-medium rounded-lg text-l mb-2 p-2 dark:focus:ring-yellow-900">Cari</button>
 
                     </form>
                     @if ($message = Session::get('failed'))

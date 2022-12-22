@@ -14,6 +14,8 @@
 <body>
     <div id="map" class="h-screen w-screen relative">
         <div class="z-1000 absolute top-4 left-10 w-auto">
+            <i style="cursor:pointer;width:50px;height:50px;padding:10px;" class="text-center col-sm-1 fas fa-chevron-left self-start text-2xl bg-white border border-gray-200 rounded-lg shadow-md mb-2" onclick="history.back()"></i>
+            <a href="{{ route('user.homepage') }}"><i style="cursor:pointer;color:black;width:50px;height:50px;padding:10px;" class="text-center col-sm-1 fas fa-home text-2xl self-start bg-white border border-gray-200 rounded-lg shadow-md mb-2"></i></a>
             <form action="{{ route('map.searchmap') }}" method="post">
                 @csrf
                 <div class="row">

@@ -39,6 +39,9 @@
 use App\Models\User;
 use Illuminate\Support\Facades\Auth; ?>
 <div class="w-10/12 ml-3 bg-white border border-gray-200 rounded-2xl shadow-md max-h-80vh overflow-auto p-4">
+    <i style="cursor:pointer;width:50px;height:50px;padding:10px;" class="text-center col-sm-1 fas fa-chevron-left self-start text-xl bg-white border border-gray-200 rounded-lg shadow-md mb-2" onclick="history.back()"></i>
+    <a href="{{ route('user.homepage') }}"><i style="cursor:pointer;color:black;width:50px;height:50px;padding:10px;" class="text-center col-sm-1 fas fa-home text-xl self-start bg-white border border-gray-200 rounded-lg shadow-md mb-2"></i></a>
+
     <div class="row mt-3">
         <div class="col-sm-6">
             <img class="rounded-t-lg" src="/storage/{{ $data->image }}" alt="" />

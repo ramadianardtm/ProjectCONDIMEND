@@ -115,8 +115,6 @@
                 @endif
 
             </div>
-
-            <button class="btn btn-edit w-100 mt-3" type="button" href="">Tarik Saldo</button>
         </div>
     </div>
 </div>

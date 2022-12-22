@@ -40,6 +40,7 @@ Route::prefix('pengelola')->group(function () {
     Route::post('regparkir', [AuthController::class, 'doregistertempatparkir'])->name('pengelola.regparkir')->middleware('pengelolaonly');;
     Route::get('/dashboard', [LoadController::class, 'getdashboardpengelola'])->name('pengelola.dashboard')->middleware('pengelolaonly');
     Route::post('/dashboard', [CrudController::class, 'pengelolaupdatestatus'])->name('pengelola.update');
+    Route::post('/rekap', [CrudController::class, 'pengelolatopup'])->name('pengelola.topup');
     Route::get('/rekap', [LoadController::class, 'getrekappengelola'])->name('pengelola.rekap')->middleware('pengelolaonly');
     Route::get('/info', [LoadController::class, 'pengelolainfo'])->name('pengelola.info')->middleware('pengelolaonly');
     Route::get('/profile', [LoadController::class, 'updateprofilepengelola'])->name('pengelola.profile')->middleware('pengelolaonly');
@@ -65,9 +66,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::prefix('user')->group(function () {
         Route::get('/', fn () => redirect()->route('user.search'))->name('user.index');
+        Route::get('/homepage', [LoadController::class, 'usergethome'])->name('user.homepage')->middleware('logedonly');
         Route::get('/search', [LoadController::class, 'usergetreservasi'])->name('user.search');
         Route::post('/search', [CrudController::class, 'userselesai'])->name('user.update');
-        Route::get('/history', [LoadController::class, 'usergethistory'])->name('user.history')->middleware('logedonly');;
+        Route::post('/homepage', [CrudController::class, 'usertopup'])->name('user.topup');
+        Route::get('/history', [LoadController::class, 'usergethistory'])->name('user.history')->middleware('logedonly');
         Route::get('/info', [LoadController::class, 'updateprofilepage'])->name('user.info')->middleware('logedonly');
         Route::post('/info', [CrudController::class, 'doupdateprofile'])->name('user.info')->middleware('logedonly');
     });

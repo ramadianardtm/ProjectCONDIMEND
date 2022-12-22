@@ -11,22 +11,73 @@
 
     use Illuminate\Support\Facades\Auth;
     ?>
+
+    <!-- Popup modal Filter -->
+    <div class="modal fade bd-example-modal-lg" id="topupmodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <?php
+                $user_infos = App\Models\User::find(Auth::user()->id); ?>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Top Up Saldo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 style="font-weight: medium; font-size:18px;">Masukkan Jumlah Top Up</h4>
+                    <input type="hidden" id="saldouser" name="saldouser" value="{{$user_infos->saldo}}">
+                    <form action="{{ route('user.topup') }}" method="POST">
+                        @csrf
+                        <br>
+
+                        <div class="row mb-5" style="margin-top: -20px; padding:10px;">
+                            <div class="container-fluid">
+                                <div class="form-group">
+                                    <div class="mb-3">
+                                        <input type="hidden" value="{{ $user_infos->id }}" name="id">
+                                        <label for="formGroupExampleInput" class="form-label">Jumlah Top Up</label>
+                                        <input type="number" class="form-control" id="saldo" name="saldo" placeholder="Masukkan Jumlah Saldo">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="formGroupExampleInput2" class="form-label">Metode Pembayaran</label>
+                                        <select name="metode" id="metode" style="width: 100%;border:solid 1px #ACB8C2;border-radius:6px;padding-left:10px;padding-right:10px;">
+                                            <option value="dana">Dana</option>
+                                            <option value="gopay">Gopay</option>
+                                            <option value="ovo">Ovo</option>
+                                            <option value="shopeepay">ShopeePay</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+                <div class="modal-footer mt-2">
+                    <button type="submit" onclick="tes()" class="focus:outline-none text-blueDark w-30 mt-2 bg-orange hover:bg-orange font-bold rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900" title="Top Up">Top Up Now</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Popup modal end -->
+
     <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md">
         <h5 class="mb-2 text-xl font-medium tracking-tight text-gray-900 dark:text-white">Cash YukParkir</h5>
         <p class="font-normal text-gray-700 dark:text-gray-400">Saldo</p>
         <?php
         $user_info = App\Models\User::find(Auth::user()->id); ?>
         <?php
-        $admin_saldo = App\Models\User::where('role','=','admin')->value('saldo'); ?>
+        $admin_saldo = App\Models\User::where('role', '=', 'admin')->value('saldo'); ?>
         <?php
-        $admin_id = App\Models\User::where('role','=','admin')->value('id'); ?>
+        $admin_id = App\Models\User::where('role', '=', 'admin')->value('id'); ?>
 
         <p class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Rp {{$user_info->saldo}}</p>
     </div>
-    <button type="button" class="focus:outline-none text-blueDark w-full mt-2 bg-orange hover:bg-orange font-bold rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">Top
+    <button type="button" data-toggle="modal" data-target="#topupmodal" class="focus:outline-none text-blueDark w-full mt-2 bg-orange hover:bg-orange font-bold rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">Top
         Up</button>
-    <button type="button" class="focus:outline-none text-blueDark w-full mt-2 bg-orange hover:bg-orange font-bold rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">Tarik
-        Saldo</button>
+
 </div>
 <div class="w-7/12 ml-3 bg-white border border-gray-200 rounded-2xl shadow-md max-h-70vh overflow-auto p-4">
     <p class="text-blueDark text-xl">Reservasi Aktif Parkir</p>
@@ -88,20 +139,37 @@
     @endforeach
     @endif
     <script>
+        function tes(){
+        var saldoskrg = document.getElementById('saldouser').value;
+        var inputsaldo = document.getElementById('saldo').value;
+
+        console.log(saldoskrg);
+        console.log(inputsaldo);
+
+        var saldonow = parseInt(saldoskrg);
+        var saldoskrg = parseInt(inputsaldo);
+
+        var saldonew = (saldonow + saldoskrg);
+        console.log('saldobaru'+saldonew);
+
+        document.querySelector("[name=saldo]").value = saldonew;
+    }
+    </script>
+    <script>
         for (var i = 0; i < document.getElementsByClassName('aselole').length; i++) {
             var y = document.getElementsByClassName('slotsekarang')[i].value;
-            var a =  document.getElementsByClassName('adminsaldo')[i].value;
+            var a = document.getElementsByClassName('adminsaldo')[i].value;
             var b = document.getElementsByClassName('total_biaya')[i].value;
 
             var slotnow = parseInt(y);
             var saldoadmin = parseInt(a);
             var totalbiaya = parseInt(b);
 
-            var saldosekarang = saldoadmin+totalbiaya;
+            var saldosekarang = saldoadmin + totalbiaya;
             var sisa_slot = (slotnow + 1);
             document.getElementsByClassName("slot")[i].value = sisa_slot;
             document.getElementsByClassName("saldo")[i].value = saldosekarang;
-    }
+        }
     </script>
     <script>
         var days;

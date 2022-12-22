@@ -12,8 +12,12 @@
 </head>
 
 <body>
+
     <div id="map" class="h-screen w-screen relative">
         <div class="z-1000 absolute top-4 left-10 w-auto">
+            <i style="cursor:pointer;width:50px;height:50px;padding:10px;" class="text-center col-sm-1 fas fa-chevron-left self-start text-2xl bg-white border border-gray-200 rounded-lg shadow-md mb-2" onclick="history.back()"></i>
+            <a href="{{ route('user.homepage') }}"><i style="cursor:pointer;color:black;width:50px;height:50px;padding:10px;" class="text-center col-sm-1 fas fa-home text-2xl self-start bg-white border border-gray-200 rounded-lg shadow-md mb-2"></i></a>
+
             <div class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange focus:border-orange focus:outline-none block w-96 py-5 px-8 text-center dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <p class="truncate">{{$data['lokasi']}}</p>
             </div>
@@ -34,7 +38,7 @@
                             <p>Rp {{$data['biaya']}} / jam</p>
                         </div>
                     </div>
-                    <a href="/reservasi/{{$data['id']}}"><button  type="button" class="focus:outline-none w-full bg-orange font-medium rounded-lg text-base px-5 py-2 mr-2 mb-2">Reservasi</button></a>
+                    <a href="/reservasi/{{$data['id']}}"><button type="button" class="focus:outline-none w-full bg-orange font-medium rounded-lg text-base px-5 py-2 mr-2 mb-2">Reservasi</button></a>
                 </div>
             </div>
 
@@ -42,12 +46,12 @@
     </div>
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
     <script>
-        var lat = <?php echo json_encode($data['latitude'])?>;
-        var long = <?php echo json_encode($data['longitude'])?>;
+        var lat = <?php echo json_encode($data['latitude']) ?>;
+        var long = <?php echo json_encode($data['longitude']) ?>;
 
         var map = L.map('map', {
             zoomControl: false
-        }).setView([lat,long], 11);
+        }).setView([lat, long], 11);
         // map layer
         L.tileLayer('http://mts1.google.com/vt/lyrs=m&hl=id&x={x}&y={y}&z={z}', {
             maxZoom: 19,

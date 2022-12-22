@@ -35,21 +35,6 @@
 
 <body>
     <div class="w-10/12 ml-3 bg-white border border-gray-200 rounded-2xl shadow-md max-h-80vh overflow-auto p-4">
-        <div class="row" style="justify-content: space-between;">
-            <div class="col-sm-3 d-flex ml-4 bg-white border border-gray-200 shadow-md overflow-auto" style="height:70px;align-items:center;border-radius:10px">
-                <div class="row">
-                    <div class="col" style="margin-right: 80px;">
-                        <p>Admin</p>
-                    </div>
-                    <div class="col">
-                        <i class="fa-solid fa-user" style="font-size: 30px;padding-left:1px;"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-3 d-flex mr-4 bg-white border border-gray-200 shadow-md overflow-auto" style="height:70px;align-items:center;border-radius:10px">
-                <a style="text-align: center;" href="/logout">Logout</a>
-            </div>
-        </div>
         <p class="col text-blueDark text-xl mt-4" style="font-size: 25px;">Transaksi Aktif</p>
         <div class="col-sm-12 tablestart">
         <form action="{{ route('admin.searchtransaksi') }}" method="post" class="row">

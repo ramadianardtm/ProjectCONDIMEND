@@ -26,6 +26,32 @@ class CrudController extends Controller
         return redirect('user.info');
     }
 
+    function usertopup (Request $request)
+    {
+        $request->validate([
+            'saldo' => 'required',
+        ]);
+
+        $user = User::find($request->id);
+        $user->saldo = $request->saldo;
+
+        $user->save();
+        return redirect('user/search');
+    }
+
+    function pengelolatopup (Request $request)
+    {
+        $request->validate([
+            'saldotarik' => 'required',
+        ]);
+
+        $user = User::find($request->id);
+        $user->saldo = $request->saldotarik;
+
+        $user->save();
+        return redirect('pengelola/dashboard');
+    }
+
     function doupdateprofilepengelola(Request $request)
     {
         $request->validate([
@@ -80,6 +106,7 @@ class CrudController extends Controller
     {
         $request->validate([
             'saldo' => 'required',
+            'slot' => 'required',
         ]);
 
         $parkir = RegParkir::find($request->parkir_id);
@@ -89,7 +116,7 @@ class CrudController extends Controller
         $reserves->status = $request->status;
 
         $users = User::find(Auth::user()->id);
-        $users->saldo = $request->input('saldo');
+        $users->saldo = $request->saldo;
 
         $reserves->info = $request->info;
 

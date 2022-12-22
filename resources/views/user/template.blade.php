@@ -25,9 +25,20 @@
                     <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
                 </svg>
             </button>
-            <div class="w-1/12 flex justify-between items-center" id="navbar-default">
-                <p>Dashboard</p>
-                <i class="fas fa-user-circle"></i>
+            <div class="w-2/12 flex justify-between items-center" id="navbar-default">
+                <div class="row">
+                    <div class="col">
+                        <p>Dashboard</p>
+                    </div>
+                    <div class="col">
+                        <i class="fas fa-user-circle" style="font-size: 20px;margin-left:-15px;"></i>
+                    </div>
+                    <div class="col">
+                        <a href="/logout"><i class="fa-solid fa-right-from-bracket" style="font-size: 20px;margin-left:-15px"></i></a>
+
+                    </div>
+                    
+                </div>
             </div>
         </div>
     </nav>
@@ -38,6 +49,10 @@
                 @if (\Illuminate\Support\Facades\Auth::check())
                 @if (\Illuminate\Support\Facades\Auth::user()->role == 'member')
                 <nav class="space-y-1" aria-label="Sidebar">
+                    <a href="{{ route('user.homepage') }}" class="hover:bg-grayBackground hover:text-blueDark flex items-center pl-3.5 py-2 text-base rounded-lg {{ Route::is('user.homepage') ? 'bg-grayBackground text-blueDark' : ''}}" aria-current="page">
+                        <i class="fa-solid fa-house"></i>
+                        <span class="truncate">&nbsp;&nbsp; Home </span>
+                    </a>
                     <a href="{{ route('user.search') }}" class="hover:bg-grayBackground hover:text-blueDark flex items-center pl-3.5 py-2 text-base rounded-lg {{ Route::is('user.search') ? 'bg-grayBackground text-blueDark' : ''}}" aria-current="page">
                         <i class="fas fa-search"></i>
                         <span class="truncate">&nbsp;&nbsp; Cari </span>
@@ -112,4 +127,5 @@
     </div>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </body>
+
 </html>

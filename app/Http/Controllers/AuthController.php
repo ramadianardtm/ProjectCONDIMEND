@@ -134,7 +134,7 @@ class AuthController extends Controller
         auth()->login($user);
 
         if($user->role == "member"){
-            return redirect()->route('user.index');
+            return redirect()->route('user.homepage');
         }
         if($user->role == "pengelola"){
             return redirect()->route('pengelola.dashboard');

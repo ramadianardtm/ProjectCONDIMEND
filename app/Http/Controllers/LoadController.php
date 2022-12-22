@@ -43,6 +43,13 @@ class LoadController extends Controller
         return view('map.map')->with('parkir', $parkir);
     }
 
+    function usergethome()
+    {
+        $home = RegParkir::all();
+
+        return view('user.homepage')->with('home', $home);
+    }
+
     function getsearchparkir(Request $request)
     {
         $search  = $request->search == null ? '' : $request->search;
