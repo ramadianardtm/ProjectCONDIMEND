@@ -34,9 +34,6 @@
 </head>
 
 <body>
-    <?php
-
-    use Illuminate\Support\Facades\Auth; ?>
     <div class="w-10/12 ml-3 bg-white border border-gray-200 rounded-2xl shadow-md max-h-80vh overflow-auto p-4">
         <div class="row" style="justify-content: space-between;">
             <div class="col-sm-3 d-flex ml-4 bg-white border border-gray-200 shadow-md overflow-auto" style="height:70px;align-items:center;border-radius:10px">
@@ -55,7 +52,7 @@
         </div>
         <p class="col text-blueDark text-xl mt-4" style="font-size: 25px;">Transaksi Aktif</p>
         <div class="col-sm-12 tablestart">
-            <form action="{{ route('admin.searchtransaksi') }}" method="post" class="row">
+        <form action="{{ route('admin.searchtransaksi') }}" method="post" class="row">
                 @csrf
                 <div class="col-sm-10">
                     <input type="text" id="search" class="form-control" placeholder="Cari User" name="search">
@@ -71,8 +68,7 @@
                 <thead>
                 </thead>
                 <tbody>
-                    <?php
-                    $admin_info = App\Models\User::find(Auth::user()->id); ?>
+
                     @if($transaksi->count() == 0)
                     <div class="text-center" style="padding: 60px;margin-bottom:50px;">
                         <a href=""><i class="fas fa-exclamation-circle" style="font-size: 100px;color:#ffec58"></i></a>
@@ -108,6 +104,7 @@
                             </form>
                         </td>
                     </tr>
+
                     @endif
                     @endforeach
 

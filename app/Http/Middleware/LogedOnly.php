@@ -17,8 +17,8 @@ class LogedOnly
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!Auth::check())
-            return redirect('/');
+        if(!Auth::check() || Auth::user()->role != 'member')
+            return redirect('/')->with('failed', 'Silahan login terlebih dahulu.');
 
         
         return $next($request);

@@ -47,7 +47,6 @@
                     <select name="role" id="role" style="width: 100%;border:solid 1px #ACB8C2;border-radius:6px;padding-left:10px;padding-right:10px;">
                         <option value="member">User</option>
                         <option value="pengelola">Pengelola</option>
-                        <option value="admin">Admin</option>
                     </select>
                 </div>
                 <button type="submit" class="focus:outline-none w-full bg-orange font-medium rounded-lg text-xl px-5 py-4 mr-2 mb-2">Register</button>

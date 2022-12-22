@@ -16,6 +16,11 @@
         <p class="font-normal text-gray-700 dark:text-gray-400">Saldo</p>
         <?php
         $user_info = App\Models\User::find(Auth::user()->id); ?>
+        <?php
+        $admin_saldo = App\Models\User::where('role','=','admin')->value('saldo'); ?>
+        <?php
+        $admin_id = App\Models\User::where('role','=','admin')->value('id'); ?>
+
         <p class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Rp {{$user_info->saldo}}</p>
     </div>
     <button type="button" class="focus:outline-none text-blueDark w-full mt-2 bg-orange hover:bg-orange font-bold rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">Top
@@ -36,7 +41,7 @@
 
     @foreach ($reservasis as $pd)
     @if($pd->info == 'aktif' && $pd->status == 'confirmed')
-    <div class="block w-full p-4 bg-white border border-gray-200 rounded-lg shadow-md mt-4">
+    <div class="aselole block w-full p-4 bg-white border border-gray-200 rounded-lg shadow-md mt-4">
         <div class="w-full flex justify-center">
             <img src="/storage/{{ $pd->image }}" class="rounded-xl w-1/5" alt="tempat parkir">
             <div class="w-4/5 px-2">
@@ -51,13 +56,20 @@
             </div>
         </div>
         <div class="mt-2 flex justify-between items-start">
-                <div class="contain flex justify-between items-center w-100 px-20 py-3 bg-green rounded-lg mr-3">
-                    <p>Durasi Tersisa</p>
-                    <p class="durasisisa" id="durasisisa"></p>
-                </div>
-            <form action="{{ route('user.selesaikan') }}" method="post" enctype="multipart/form-data">
+            <div class="contain flex justify-between items-center w-100 px-20 py-3 bg-green rounded-lg mr-3">
+                <p>Durasi Tersisa</p>
+                <p class="durasisisa" id="durasisisa"></p>
+            </div>
+            <input class="slotsekarang" type="hidden" id="slotsekarang" name="slotsekarang" value="{{$pd->slot}}">
+            <input class="adminsaldo" type="hidden" id="adminsaldo" name="adminsaldo" value="{{$admin_saldo}}">
+            <input class="total_biaya" type="hidden" id="total_biaya" name="total_biaya" value="{{$pd->biayatotal}}">
+            <form action="{{ route('user.update') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" id="id" name="id" value="{{$pd->id}}">
+                <input class="adminid" type="hidden" id="adminid" name="adminid" value="{{$admin_id}}">
+                <input type="hidden" id="parkir_id" name="parkir_id" value="{{$pd->parkir_id}}">
+                <input class="slot" type="hidden" id="slot" name="slot">
+                <input class="saldo" type="hidden" id="saldo" name="saldo">
                 <input type="hidden" id="info" name="info" value="nonaktif">
                 <div class="tombolselesai" style="display: none;">
                     <button type="submit" class="bg-orange text-center py-3 rounded-lg" style="cursor: pointer;width:130px">
@@ -75,6 +87,22 @@
     @endif
     @endforeach
     @endif
+    <script>
+        for (var i = 0; i < document.getElementsByClassName('aselole').length; i++) {
+            var y = document.getElementsByClassName('slotsekarang')[i].value;
+            var a =  document.getElementsByClassName('adminsaldo')[i].value;
+            var b = document.getElementsByClassName('total_biaya')[i].value;
+
+            var slotnow = parseInt(y);
+            var saldoadmin = parseInt(a);
+            var totalbiaya = parseInt(b);
+
+            var saldosekarang = saldoadmin+totalbiaya;
+            var sisa_slot = (slotnow + 1);
+            document.getElementsByClassName("slot")[i].value = sisa_slot;
+            document.getElementsByClassName("saldo")[i].value = saldosekarang;
+    }
+    </script>
     <script>
         var days;
         var hours;
@@ -104,8 +132,6 @@
                             clearInterval(x);
                             document.getElementsByClassName("durasisisa")[i].innerHTML = "DONE";
                             document.getElementsByClassName("tombolselesai")[i].style.display = "block";
-                            document.getElementsByClassName("info")[i].innerHTML = "nonaktif";
-                            
                         } else {
                             document.getElementsByClassName("durasisisa")[i].innerHTML = hours + ":" +
                                 minutes + ":" + seconds;
@@ -131,4 +157,5 @@
             coba.Call(checkintime, checkouttime, checkindate, checkoutdate, i);
         }
     </script>
+
     @endsection

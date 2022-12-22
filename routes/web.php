@@ -20,6 +20,8 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::get('/logout', [LoadController::class, 'logout']);
+
 Route::get('login', fn () => view('login'))->name('login-form');
 Route::get('register', fn () => view('register'))->name('register-form');
 
@@ -27,16 +29,17 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::post('register', [AuthController::class, 'register'])->name('register');
 
 Route::get('map', [LoadController::class, 'getparkir'])->name('map.map');
-Route::get('detail/{id}', [LoadController::class, 'parkirdetail'])->name('map.detail');
-Route::get('reservasi/{id}', [LoadController::class, 'doreservasi'])->name('map.reservasi');
+Route::post('/searchmap', [LoadController::class, 'getsearchparkir'])->name('map.searchmap');
+Route::get('detail/{id}', [LoadController::class, 'parkirdetail'])->name('map.detail')->middleware('logedonly');
+Route::get('reservasi/{id}', [LoadController::class, 'doreservasi'])->name('map.reservasi')->middleware('logedonly');;
 Route::post('reservasi/{id}', [AuthController::class, 'createreservasi'])->name('map.reservasi');
 
 
 Route::prefix('pengelola')->group(function () {
-    Route::get('regparkir', [LoadController::class, 'regtempatparkir'])->name('pengelola.regparkir');
-    Route::post('regparkir', [AuthController::class, 'doregistertempatparkir'])->name('pengelola.regparkir');
+    Route::get('regparkir', [LoadController::class, 'regtempatparkir'])->name('pengelola.regparkir')->middleware('pengelolaonly');;
+    Route::post('regparkir', [AuthController::class, 'doregistertempatparkir'])->name('pengelola.regparkir')->middleware('pengelolaonly');;
     Route::get('/dashboard', [LoadController::class, 'getdashboardpengelola'])->name('pengelola.dashboard')->middleware('pengelolaonly');
-    Route::post('/dashboard', [CrudController::class, 'pengelolaupdatestatus'])->name('pengelola.update')->middleware('pengelolaonly');
+    Route::post('/dashboard', [CrudController::class, 'pengelolaupdatestatus'])->name('pengelola.update');
     Route::get('/rekap', [LoadController::class, 'getrekappengelola'])->name('pengelola.rekap')->middleware('pengelolaonly');
     Route::get('/info', [LoadController::class, 'pengelolainfo'])->name('pengelola.info')->middleware('pengelolaonly');
     Route::get('/profile', [LoadController::class, 'updateprofilepengelola'])->name('pengelola.profile')->middleware('pengelolaonly');
@@ -47,10 +50,14 @@ Route::prefix('pengelola')->group(function () {
 Route::prefix('admin')->group(function () {
     Route::get('/analytics', [LoadController::class, 'admingetanalytics'])->name('admin.analytics')->middleware('adminonly');
     Route::get('/transaksi', [LoadController::class, 'admingettransaksi'])->name('admin.transaksi')->middleware('adminonly');
+    Route::post('/searchtransaksi', [LoadController::class, 'admingetsearchtransaksi'])->name('admin.searchtransaksi')->middleware('adminonly');
     Route::post('/transaksi', [CrudController::class, 'adminbatalkanreservasi'])->name('admin.selesai');
     Route::get('/riwayat', [LoadController::class, 'admingetriwayat'])->name('admin.riwayat')->middleware('adminonly');
+    Route::post('/searchriwayat', [LoadController::class, 'adminsearchriwayat'])->name('admin.searchriwayat')->middleware('adminonly');
     Route::get('/user', [LoadController::class, 'admingetuser'])->name('admin.user')->middleware('adminonly');
+    Route::post('/searchuser', [LoadController::class, 'adminsearchuser'])->name('admin.searchuser')->middleware('adminonly');
     Route::get('/pengelola', [LoadController::class, 'admingetpengelola'])->name('admin.pengelola')->middleware('adminonly');
+    Route::post('/searchpengelola', [LoadController::class, 'adminsearchpengelola'])->name('admin.searchpengelola')->middleware('adminonly');
 });
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -59,8 +66,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::prefix('user')->group(function () {
         Route::get('/', fn () => redirect()->route('user.search'))->name('user.index');
         Route::get('/search', [LoadController::class, 'usergetreservasi'])->name('user.search');
-        Route::post('/search', [CrudController::class, 'userselesaikanreservasi'])->name('user.selesaikan');
-        Route::get('/history', [LoadController::class, 'usergethistory'])->name('user.history');
+        Route::post('/search', [CrudController::class, 'userselesai'])->name('user.update');
+        Route::get('/history', [LoadController::class, 'usergethistory'])->name('user.history')->middleware('logedonly');;
         Route::get('/info', [LoadController::class, 'updateprofilepage'])->name('user.info')->middleware('logedonly');
         Route::post('/info', [CrudController::class, 'doupdateprofile'])->name('user.info')->middleware('logedonly');
     });

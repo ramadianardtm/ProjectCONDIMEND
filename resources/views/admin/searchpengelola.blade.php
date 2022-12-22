@@ -48,7 +48,7 @@
         <br>
         <p class="col-sm-12 text-blueDark text-xl mt-2" style="font-size: 25px;">Katalog Pengelola</p>
         <div class="col-sm-12 tablestart">
-            <form action="{{ route('admin.searchpengelola') }}" method="post" class="row">
+        <form action="{{ route('admin.searchpengelola') }}" method="post" class="row">
                 @csrf
                 <div class="col-sm-10">
                     <input type="text" id="search" class="form-control" placeholder="Cari Pengelola" name="search">

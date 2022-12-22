@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\Console\Input\Input;
 
 class CrudController extends Controller
 {
@@ -42,8 +43,8 @@ class CrudController extends Controller
 
     function doupdateparkir(Request $request)
     {
-        
-        $parkir=RegParkir::where('user_id', Auth::user()->id)->first();
+
+        $parkir = RegParkir::where('user_id', Auth::user()->id)->first();
         $request->validate([
             'name' => 'required|max:255',
             'slot' => 'required|integer',
@@ -80,6 +81,7 @@ class CrudController extends Controller
         $request->validate([
             'saldo' => 'required',
         ]);
+
         $parkir = RegParkir::find($request->parkir_id);
         $parkir->slot = $request->slot;
 
@@ -87,8 +89,8 @@ class CrudController extends Controller
         $reserves->status = $request->status;
 
         $users = User::find(Auth::user()->id);
-        $users->saldo = $request->saldo;
-        
+        $users->saldo = $request->input('saldo');
+
         $reserves->info = $request->info;
 
         $reserves->save();
@@ -98,13 +100,25 @@ class CrudController extends Controller
         return redirect()->route('pengelola.dashboard');
     }
 
-    function userselesaikanreservasi(Request $request)
+    function userselesai(Request $request)
     {
+        $request->validate([
+            'slot' => 'required',
+            'saldo' => 'required'
+        ]);
 
+        $admin = User::find($request->adminid);
+        $admin->saldo = $request->input('saldo');
+
+        $parkir = RegParkir::find($request->parkir_id);
+        $parkir->slot = $request->slot;
+        
         $reserves = reservasi::find($request->id);
         $reserves->info = $request->info;
 
         $reserves->save();
+        $parkir->save();
+        $admin->save();
 
         return redirect()->route('user.search');
     }
@@ -123,5 +137,4 @@ class CrudController extends Controller
 
         return redirect()->route('admin.transaksi');
     }
-
 }

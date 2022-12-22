@@ -1,5 +1,5 @@
 @extends('user.template')
-@section('title', 'Riwayat Transaksi')
+@section('title', 'Dashboard - Pengelola')
 
 @section('content')
 <!doctype html>
@@ -38,7 +38,7 @@
         <div class="row">
             <p class="col text-blueDark text-xl" style="font-size: 25px;">Riwayat Transaksi</p>
             <div class="col-sm-12 tablestart">
-                <form action="{{ route('admin.searchriwayat') }}" method="post" class="row">
+            <form action="{{ route('admin.searchriwayat') }}" method="post" class="row">
                     @csrf
                     <div class="col-sm-10">
                         <input type="text" id="search" class="form-control" placeholder="Cari Riwayat" name="search">

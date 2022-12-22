@@ -15,7 +15,7 @@
     <div id="map" class="h-screen w-screen relative">
         <div class="z-1000 absolute top-4 left-10 w-auto">
             <form action="{{ route('map.searchmap') }}" method="post">
-                @csrf
+            @csrf
                 <div class="row">
                     <input type="text" autocomplete="off" name="search" id="search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange focus:border-orange focus:outline-none block w-96 py-5 px-3 text-center dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Lokasi, Kode Pos, ...">
                     <button type="submit" class="mt-1 focus:outline-none text-blueDark w-full bg-orange hover:bg-orange font-bold rounded-lg text-l mr-2 mb-2 p-2 dark:focus:ring-yellow-900">Cari</button>
