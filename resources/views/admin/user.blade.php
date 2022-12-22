@@ -80,7 +80,7 @@
                         <td>{{ $dt->name }}</td>
                         <td>{{$dt->id}}</td>
                         <td>{{$dt->email}}</td>
-                        <td>{{$dt->password}}</td>
+                        <td>**********</td>
                     </tr>
 
                     @endif

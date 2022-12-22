@@ -93,11 +93,12 @@
                         <input type="text" id="lokasi" name="lokasi" class="form-control" placeholder="Posisi Lokasi" aria-label="Lokasi">
                     </div>
                     <div class="col-sm-6 mt-2">
-                        <label class="custom-file-upload">
-                            <i class="fa-solid fa-plus" style="color:#5B5B5B;font-size:50px;"></i>
-                            <p style="color:#373737;">Upload Foto Lokasi Parkir</p>
-                            <input type="file" id="image" name="image" class="form-control-file">
-                        </label>
+                        <center>
+                            <img class="img-thumbnail mb-2" id="output" style="max-width: 30%;" />
+                        </center>
+                        <p style="color:#373737;">Upload Foto Lokasi Parkir</p>
+                       
+                        <input type="file" id="image" name="image" class="form-control-file">
                     </div>
                     <div class="col-sm-6 mt-2">
                         <input type="hidden" class="form-control" id="latitude" name="latitude">
@@ -180,6 +181,11 @@
     })
 </script>
 
+<script>
+    $('.image').on('change', function() {
+        console.log(this.value);
+    });
+</script>
 @endsection
 
 </html>
