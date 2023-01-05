@@ -11,13 +11,25 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 </head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+    *,
+    html {
+        font-family: 'Poppins', sans-serif;
+        color: #000;
+    }
+</style>
 
 <body>
-    <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
+    <nav class="bg-white border-gray-200 px-2 py-3.5 rounded dark:bg-gray-900">
         <div class="container flex flex-wrap items-center justify-between mx-auto px-12">
             <a href="{{ route('user.search') }}" class="flex items-center">
-                <img src="{{ asset('images/logo/logo.png') }}" class="h-6 mr-3 sm:h-9" alt="Yukparkir Logo" />
+                <img src="{{ asset('images/condimend.png') }}" class="mr-3" style="height: 120px; width:100px;object-fit:cover;position:absolute;padding-top:10px;" />
             </a>
             <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>
@@ -37,12 +49,11 @@
                         <a href="/logout"><i class="fa-solid fa-right-from-bracket" style="font-size: 20px;margin-left:-15px"></i></a>
 
                     </div>
-                    
+
                 </div>
             </div>
         </div>
     </nav>
-    <img src="{{ asset('images/line.png') }}" alt="Line Navbar" class="w-full h-1.5">
     <div class="px-8 my-16">
         <div class="mt-8 mx-8 flex">
             <div class="w-2/12 p-2 bg-white border border-gray-200 rounded-2xl shadow-md">
@@ -72,11 +83,20 @@
                 <nav class="space-y-1" aria-label="Sidebar">
                     <a href="{{ route('pengelola.regparkir') }}" class="hover:bg-grayBackground hover:text-blueDark flex items-center pl-3.5 py-2 text-base rounded-lg {{ Route::is('pengelola.regparkir') ? 'bg-grayBackground text-blueDark' : ''}}" aria-current="page">
                         <i class="fas fa-plus"></i>
-                        <span class="truncate">&nbsp;&nbsp; Register </span>
+                        <span class="truncate">&nbsp;&nbsp; Add Product </span>
+                    </a>
+                    <a href="{{ route('pengelola.trainer') }}" class="hover:bg-grayBackground hover:text-blueDark flex items-center pl-3.5 py-2 text-base rounded-lg {{ Route::is('pengelola.trainer') ? 'bg-grayBackground text-blueDark' : ''}}" aria-current="page">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span class="truncate">&nbsp;&nbsp; Add Trainer </span>
                     </a>
                     <a href="{{ route('pengelola.dashboard') }}" class="hover:bg-grayBackground hover:text-blueDark flex items-center pl-3.5 py-2 text-base rounded-lg {{ Route::is('pengelola.dashboard') ? 'bg-grayBackground text-blueDark' : ''}}" aria-current="page">
                         <i class="fas fa-book-open"></i>
                         <span class="truncate">&nbsp;&nbsp; Dashboard </span>
+                    </a>
+
+                    <a href="{{ route('pengelola.product') }}" class="hover:bg-grayBackground hover:text-blueDark flex items-center pl-3.5 py-2 text-base rounded-lg {{ Route::is('pengelola.product') ? 'bg-grayBackground text-blueDark' : ''}}" aria-current="page">
+                        <i class="fa-solid fa-briefcase"></i>
+                        <span class="truncate">&nbsp;&nbsp; Manage Product </span>
                     </a>
 
                     <a href="{{ route('pengelola.rekap') }}" class="hover:bg-grayBackground hover:text-blueDark flex items-center pl-3.5 py-2 text-base rounded-lg {{ Route::is('pengelola.rekap') ? 'bg-grayBackground text-blueDark' : ''}}" aria-current="page">

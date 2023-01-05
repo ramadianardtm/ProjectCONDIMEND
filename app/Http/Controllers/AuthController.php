@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AddProduct;
 use App\Models\RegParkir;
 use App\Models\reservasi;
+use App\Models\Trainer;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -46,11 +48,8 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
-            'slot' => 'required|integer',
-            'biaya' => 'required',
-            'latitude' => 'required',
-            'longitude' => 'required',
-            'lokasi' => 'required',
+            'price' => 'required|integer',
+            'detail' => 'required',
             'image' => 'required',
         ]);
         
@@ -59,23 +58,46 @@ class AuthController extends Controller
             return redirect()->route('pengelola.regparkir')->withErrors($validator)->withInput();
         }
 
-        $regpark = new RegParkir();
+        $addprod = new AddProduct();
         $image = str_replace(' ', '', $request->name) . $request->file('image')->getClientOriginalExtension();
         $request->image->storeAs(
             '\public\\',
             $image
         );
-        $regpark->user_id = Auth::user()->id;
-        $regpark->id = Auth::user()->id;
-        $regpark->name = $request->name;
-        $regpark->slot = $request->slot;
-        $regpark->slotmaksimal = $request->slot;
-        $regpark->biaya = $request->biaya;
-        $regpark->latitude = $request->latitude;
-        $regpark->longitude = $request->longitude;
-        $regpark->lokasi = $request->lokasi;
-        $regpark->image = $image;
-        $regpark->save();
+        $addprod->name = $request->name;
+        $addprod->price = $request->price;
+        $addprod->detail = $request->detail;
+        $addprod->image = $image;
+        $addprod->save();
+
+        return redirect()->route('pengelola.regparkir')->with('success', 'Registrasi berhasil.');
+    }
+
+    function registertrainer(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'special' => 'required',
+            'detail' => 'required',
+            'image' => 'required',
+        ]);
+        
+
+        if ($validator->fails()) {
+            return redirect()->route('pengelola.regparkir')->withErrors($validator)->withInput();
+        }
+
+        $addtrainer = new Trainer();
+        $image = str_replace(' ', '', $request->name) . $request->file('image')->getClientOriginalExtension();
+        $request->image->storeAs(
+            '\public\\',
+            $image
+        );
+        $addtrainer->name = $request->name;
+        $addtrainer->special = $request->special;
+        $addtrainer->detail = $request->detail;
+        $addtrainer->image = $image;
+        $addtrainer->save();
 
         return redirect()->route('pengelola.dashboard')->with('success', 'Registrasi berhasil.');
     }

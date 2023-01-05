@@ -12,7 +12,7 @@
     <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
         <div class="container flex flex-wrap items-center justify-between mx-auto px-12">
             <a href="https://flowbite.com/" class="flex items-center">
-                <img src="{{ asset('images/logo/logo.png') }}" class="h-6 mr-3 sm:h-9" alt="Yukparkir Logo" />
+                <img src="{{ asset('images/condimend.png') }}" class="mr-3" style="height: 120px; width:100px;object-fit:cover;position:absolute" />
             </a>
             <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>
@@ -51,7 +51,7 @@
             </div>
         </div>
     </nav>
-    <img src="{{ asset('images/line.png') }}" alt="Line Navbar" class="w-full h-1.5">
+
     <div>
         <div class="flex space-x-1 h-full w-full px-16 pt-20 justify-center bg-repeat bg-10 bg-scroll bg-center" style="background-image: url({{ asset('images/car-tile.png') }})">
             <div class="w-2/4 mr-8">

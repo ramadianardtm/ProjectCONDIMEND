@@ -36,8 +36,11 @@ Route::post('reservasi/{id}', [AuthController::class, 'createreservasi'])->name(
 
 
 Route::prefix('pengelola')->group(function () {
-    Route::get('regparkir', [LoadController::class, 'regtempatparkir'])->name('pengelola.regparkir')->middleware('pengelolaonly');;
-    Route::post('regparkir', [AuthController::class, 'doregistertempatparkir'])->name('pengelola.regparkir')->middleware('pengelolaonly');;
+    Route::get('regparkir', [LoadController::class, 'regtempatparkir'])->name('pengelola.regparkir')->middleware('pengelolaonly');
+    Route::post('regparkir', [AuthController::class, 'doregistertempatparkir'])->name('pengelola.regparkir')->middleware('pengelolaonly');
+    Route::get('/trainer', [LoadController::class, 'trainer'])->name('pengelola.trainer')->middleware('pengelolaonly');
+    Route::post('/trainer', [AuthController::class, 'registertrainer'])->name('pengelola.regtrainer')->middleware('pengelolaonly');
+    Route::get('/manage-product', [LoadController::class, 'manageproduct'])->name('pengelola.product')->middleware('pengelolaonly');
     Route::get('/dashboard', [LoadController::class, 'getdashboardpengelola'])->name('pengelola.dashboard')->middleware('pengelolaonly');
     Route::post('/dashboard', [CrudController::class, 'pengelolaupdatestatus'])->name('pengelola.update');
     Route::post('/rekap', [CrudController::class, 'pengelolatopup'])->name('pengelola.topup');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\RegParkir;
+use App\Models\AddProduct;
 use App\Models\reservasi;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -32,6 +33,10 @@ class LoadController extends Controller
 
         return view('pengelola.regparkir')->with('parkir', $parkir);
     }
+    function trainer()
+    {
+        return view('pengelola.regtrainer');
+    }
     function pengelolainfo()
     {
         $parkir = RegParkir::where('user_id', Auth::user()->id)->get();
@@ -41,6 +46,13 @@ class LoadController extends Controller
     {
         $parkir = RegParkir::all();
         return view('map.map')->with('parkir', $parkir);
+    }
+
+    function manageproduct(){
+        $product = AddProduct::all();
+        // dd($product);
+
+        return view('pengelola.product')->with('product', $product);
     }
 
     function usergethome()

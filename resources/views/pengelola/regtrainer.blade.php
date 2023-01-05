@@ -1,5 +1,5 @@
 @extends('user.template')
-@section('title', 'Add Product | CONDIMEND')
+@section('title', 'Add Trainer | CONDIMEND')
 
 @section('content')
 <html>
@@ -62,7 +62,7 @@
 
     <div class="w-10/12 ml-3 bg-white border border-gray-200 rounded-2xl shadow-md max-h-150vh overflow-auto p-4">
         <div class="row">
-            <p class="col text-blueDark text-xl" style="font-size: 28px;">Add Product</p>
+            <p class="col text-blueDark text-xl" style="font-size: 28px;">Add Trainer</p>
             @if ($errors->any())
             <div class="flex w-full p-4 mb-4 text-sm text-white bg-red-700 rounded-lg self-start" role="alert">
                 <ul class="mt-1.5 text-blue-700 list-disc list-inside">
@@ -73,14 +73,14 @@
         </div>
         <div class="block w-full p-4 bg-white border border-gray-200 rounded-lg shadow-md mt-4">
             <div class="w-full flex justify-center">
-                <form action="{{ route('pengelola.regparkir') }}" method="POST" class="w-full" enctype="multipart/form-data">
+                <form action="{{ route('pengelola.regtrainer') }}" method="POST" class="w-full" enctype="multipart/form-data">
                     @csrf
                     <div class="row text-left">
                         <div class="col-sm-12 mb-3">
                             <div class="before" id="before" style="display: block;">
                                 <label class="custom-file-upload">
                                     <i class="fa-solid fa-plus" style="color:#5B5B5B;font-size:50px;"></i>
-                                    <p style="color:#373737;">Upload Product Image</p>
+                                    <p style="color:#373737;">Trainer Image</p>
                                     <input type="file" onchange="loadFile(this)" id="image" name="image" class="form-control-file">
                                 </label>
                             </div>
@@ -91,19 +91,19 @@
                             </div>
                         </div>
                         <div class="col-sm-12 mb-3">
-                            <label for="name" class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Name</label>
-                            <input id="name" name="name" type="text" class="form-control" placeholder="Insert Product Name">
+                            <label for="name" class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Trainer Name</label>
+                            <input id="name" name="name" type="text" class="form-control" placeholder="Insert Trainer Name">
                         </div>
                         <div class="col-sm-12 mb-3">
-                            <label for="name" class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Detail</label>
-                            <input id="detail" name="detail" type="text" class="form-control" placeholder="Insert Product Detail">
+                            <label for="name" class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Trainer Detail</label>
+                            <input id="detail" name="detail" type="text" class="form-control" placeholder="Insert Trainer Detail">
                         </div>
                         <div class="col-sm-12 mb-3">
-                            <label for="name" class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Price</label>
-                            <input id="price" name="price" type="text" class="form-control" placeholder="Insert Product Price">
+                            <label for="name" class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Trainer Speciality</label>
+                            <input id="special" name="special" type="text" class="form-control" placeholder="Insert Trainer Speciality">
                         </div>
                     <div class="col-sm-12 center text-center">
-                        <button type="submit" class="btn btn-reg mx-2">Add Product</button>
+                        <button type="submit" class="btn btn-reg mx-2">Add Trainer</button>
                     </div>
                 </form>
             </div>
