@@ -16,8 +16,9 @@ class CreateAddProductsTable extends Migration
         Schema::create('add_products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('detail');
+            $table->longText('detail');
             $table->string('image');
+            $table->string('trainer');
             $table->bigInteger('price');
             $table->timestamps();
         });

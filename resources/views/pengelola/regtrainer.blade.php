@@ -40,21 +40,19 @@
     .btn-reg {
         color: #fff;
         font-weight: 400;
-        width: 300px;
-        margin-top: 20px;
+        width: 230px;
         font-size: 16px;
-        border-radius: 4px;
-        background-color: #0bd18c;
+        border-radius: 10px;
+        background-color: #564b46;
     }
 
     .btn-reg:hover {
         color: #fff;
         font-weight: 400;
-        width: 300px;
-        margin-top: 20px;
+        width: 230px;
         font-size: 16px;
-        border-radius: 4px;
-        background-color: #0dffaa;
+        border-radius: 10px;
+        background-color: #876f61;
     }
 </style>
 
@@ -96,15 +94,15 @@
                         </div>
                         <div class="col-sm-12 mb-3">
                             <label for="name" class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Trainer Detail</label>
-                            <input id="detail" name="detail" type="text" class="form-control" placeholder="Insert Trainer Detail">
+                            <textarea id="detail" name="detail" type="text" class="form-control" rows="5" placeholder="Insert Trainer Detail"></textarea>
                         </div>
                         <div class="col-sm-12 mb-3">
                             <label for="name" class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Trainer Speciality</label>
                             <input id="special" name="special" type="text" class="form-control" placeholder="Insert Trainer Speciality">
                         </div>
-                    <div class="col-sm-12 center text-center">
-                        <button type="submit" class="btn btn-reg mx-2">Add Trainer</button>
-                    </div>
+                        <div class="col-sm-12 center text-center">
+                            <button type="submit" class="btn btn-reg mx-2">Add Trainer</button>
+                        </div>
                 </form>
             </div>
         </div>

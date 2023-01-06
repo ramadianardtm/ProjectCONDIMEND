@@ -40,21 +40,19 @@
     .btn-reg {
         color: #fff;
         font-weight: 400;
-        width: 300px;
-        margin-top: 20px;
+        width: 230px;
         font-size: 16px;
-        border-radius: 4px;
-        background-color: #0bd18c;
+        border-radius: 10px;
+        background-color: #564b46;
     }
 
     .btn-reg:hover {
         color: #fff;
         font-weight: 400;
-        width: 300px;
-        margin-top: 20px;
+        width: 230px;
         font-size: 16px;
-        border-radius: 4px;
-        background-color: #0dffaa;
+        border-radius: 10px;
+        background-color: #876f61;
     }
 </style>
 
@@ -86,7 +84,7 @@
                             </div>
                             <div class="after" id="after" style="display: none;">
                                 <center>
-                                    <img class="mb-2" id="output" style="max-width: 100%;height:200px;object-fit:cover;" />
+                                    <img class="mb-2" id="output" style="width:500px;height:200px;object-fit:cover;border-radius:12px;" />
                                 </center>
                             </div>
                         </div>
@@ -96,15 +94,25 @@
                         </div>
                         <div class="col-sm-12 mb-3">
                             <label for="name" class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Detail</label>
-                            <input id="detail" name="detail" type="text" class="form-control" placeholder="Insert Product Detail">
+                            <textarea id="detail" rows="5" name="detail" class="form-control" placeholder="Insert Product Detail"></textarea>
                         </div>
                         <div class="col-sm-12 mb-3">
                             <label for="name" class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Price</label>
                             <input id="price" name="price" type="text" class="form-control" placeholder="Insert Product Price">
                         </div>
-                    <div class="col-sm-12 center text-center">
-                        <button type="submit" class="btn btn-reg mx-2">Add Product</button>
-                    </div>
+                        <div class="col-sm-12 mb-3 form-group">
+                            <label for="name" class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Trainer Name</label><br>
+                            <select class="px-3" name="trainer" style="border: solid 1px #c4c4c4; border-radius: 4px;">
+                                <?php $cat = App\Models\Trainer::all(); ?>
+                                <option value="0" disabled>Pick here</option>
+                                @foreach ($cat as $c)
+                                <option value="{{ $c->id }}">{{ $c->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-sm-12 center text-center">
+                            <button type="submit" class="btn btn-reg mx-2">Add Product</button>
+                        </div>
                 </form>
             </div>
         </div>

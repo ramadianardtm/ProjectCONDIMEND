@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AddProduct;
+use App\Models\Order;
 use App\Models\RegParkir;
 use App\Models\reservasi;
 use Illuminate\Http\Request;
@@ -26,7 +28,7 @@ class CrudController extends Controller
         return redirect('user.info');
     }
 
-    function usertopup (Request $request)
+    function usertopup(Request $request)
     {
         $request->validate([
             'saldo' => 'required',
@@ -39,7 +41,7 @@ class CrudController extends Controller
         return redirect('user/search');
     }
 
-    function pengelolatopup (Request $request)
+    function pengelolatopup(Request $request)
     {
         $request->validate([
             'saldotarik' => 'required',
@@ -102,6 +104,44 @@ class CrudController extends Controller
         return redirect()->route('pengelola.dashboard');
     }
 
+    function updateproduct(Request $request, $id)
+    {
+        $product = AddProduct::find($id);
+        $request->validate([
+            'name' => 'required|max:255',
+            'price' => 'required|integer',
+            'detail' => 'required',
+            'trainer' => 'required',
+        ]);
+        if ($request->image) {
+            $image = str_replace(' ', '-', $request->name) . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->image->storeAs(
+                '\public\\',
+                $image
+            );
+
+            $product->image = $image;
+        }
+
+        $product->name = $request->name;
+        $product->price = $request->price;
+        $product->trainer = $request->trainer;
+        $product->detail = $request->detail;
+        $product->save();
+
+        return redirect()->route('pengelola.dashboard');
+    }
+
+    function pengelolaupdate (Request $request)
+    {
+        $order = Order::find($request->id);
+        $order->status = $request->status;
+        $order->info = $request->info;
+        $order->save();
+
+        return redirect()->route('pengelola.dashboard');
+    }
+
     function pengelolaupdatestatus(Request $request)
     {
         $request->validate([
@@ -127,6 +167,34 @@ class CrudController extends Controller
         return redirect()->route('pengelola.dashboard');
     }
 
+    function booknow(Request $request, $id)
+    {
+        $request->validate([
+            'price' => ['required'],
+        ]);
+
+        $order = new Order();
+        $order->user_id = $request->user_id;
+        $order->trainer_id = $request->trainer_id;
+        $order->product_id = $id;
+        $order->status = "unconfirmed";
+        $order->info = "belummulai";
+        $order->price = $request->price;
+        $order->save();
+
+        return redirect()->route('user.product');
+
+    }
+
+    function orderselesai(Request $request)
+    {
+        $order = Order::find($request->id);
+        $order->info = $request->info;
+        $order->save();
+
+        return redirect()->route('user.order');
+    }
+
     function userselesai(Request $request)
     {
         $request->validate([
@@ -139,7 +207,7 @@ class CrudController extends Controller
 
         $parkir = RegParkir::find($request->parkir_id);
         $parkir->slot = $request->slot;
-        
+
         $reserves = reservasi::find($request->id);
         $reserves->info = $request->info;
 

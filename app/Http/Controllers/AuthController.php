@@ -31,7 +31,7 @@ class AuthController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
-        $user->role = $request->role;
+        $user->role = 'member';
         $user->saldo = '50000';
         $user->save();
         // User::create([
@@ -44,12 +44,13 @@ class AuthController extends Controller
         return redirect()->route('login-form')->with('success', 'Registrasi berhasil, silahkan login.');
     }
 
-    function doregistertempatparkir(Request $request)
+    function doregisterproduct(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'price' => 'required|integer',
             'detail' => 'required',
+            'trainer' => 'required',
             'image' => 'required',
         ]);
         
@@ -59,7 +60,7 @@ class AuthController extends Controller
         }
 
         $addprod = new AddProduct();
-        $image = str_replace(' ', '', $request->name) . $request->file('image')->getClientOriginalExtension();
+        $image = str_replace(' ', '', $request->name) . '.' . $request->file('image')->getClientOriginalExtension();
         $request->image->storeAs(
             '\public\\',
             $image
@@ -67,6 +68,7 @@ class AuthController extends Controller
         $addprod->name = $request->name;
         $addprod->price = $request->price;
         $addprod->detail = $request->detail;
+        $addprod->trainer = $request->trainer;
         $addprod->image = $image;
         $addprod->save();
 
@@ -88,7 +90,7 @@ class AuthController extends Controller
         }
 
         $addtrainer = new Trainer();
-        $image = str_replace(' ', '', $request->name) . $request->file('image')->getClientOriginalExtension();
+        $image = str_replace(' ', '', $request->name) . '.' . $request->file('image')->getClientOriginalExtension();
         $request->image->storeAs(
             '\public\\',
             $image
@@ -100,42 +102,6 @@ class AuthController extends Controller
         $addtrainer->save();
 
         return redirect()->route('pengelola.dashboard')->with('success', 'Registrasi berhasil.');
-    }
-
-    function createreservasi(Request $request,$id)
-    {
-        $request -> validate([
-            'nokendaraan' => 'required|max:255',
-            'tipekendaraan' => 'required',
-            'checkindate'=>'required|date',
-            'checkintime'=>'required|date_format:H:i',
-            'checkoutdate'=>'required|date|after_or_equal:checkindate',
-            'checkouttime'=>'required|date_format:H:i|after:checkintime',
-            'lamaparkir' => 'required',
-            'metodebayar' => 'required',
-        ]);
-        $users = User::find(Auth::user()->id);
-        $users->saldo = $request->saldo;
-
-        $reservasi = new reservasi();
-        $reservasi->user_id = Auth::user()->id;
-        $reservasi->parkir_id = $id;
-        $reservasi->nokendaraan = $request->nokendaraan;
-        $reservasi->tipekendaraan = $request->tipekendaraan;
-        $reservasi->checkindate = $request->checkindate;
-        $reservasi->checkintime = $request->checkintime;
-        $reservasi->checkoutdate = $request->checkoutdate;
-        $reservasi->checkouttime = $request->checkouttime;
-        $reservasi->status = "unconfirmed";
-        $reservasi->info = "belummulai";
-        $reservasi->lamaparkir = $request->lamaparkir;
-        $reservasi->biayatotal = $request->biayatotal;
-        $reservasi->metodebayar = $request->metodebayar;
-
-        $reservasi->save();
-        $users->save();
-
-        return redirect()->route('user.search')->with('success', 'Registrasi berhasil.');
     }
 
     public function login(Request $request)

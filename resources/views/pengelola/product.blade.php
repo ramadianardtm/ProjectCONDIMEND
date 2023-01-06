@@ -1,5 +1,5 @@
 @extends('user.template')
-@section('title', 'Dashboard - Info')
+@section('title', 'Manage Product')
 
 @section('content')
 
@@ -25,12 +25,85 @@
     }
 
     .btn-edit {
-        color: #183153;
+        color: #fff;
         font-weight: 400;
         width: 230px;
         font-size: 16px;
         border-radius: 10px;
-        background-color: #D98829;
+        background-color: #564b46;
+    }
+
+    .btn-edit:hover {
+        color: #fff;
+        font-weight: 400;
+        width: 230px;
+        font-size: 16px;
+        border-radius: 10px;
+        background-color: #876f61;
+    }
+
+    .product-grid {
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        color: black;
+    }
+
+    .product-grid a {
+        text-decoration: none;
+        color: black;
+    }
+
+    .btn-signin {
+        height: fit-content;
+        width: 120px;
+        border-radius: 30px;
+        border: 1px;
+        border-style: solid;
+        border-color: #000;
+        background-color: #fff;
+        color: #000;
+        font-weight: 500;
+    }
+
+    .btn-signin:hover {
+        width: 120px;
+        font-weight: 700px;
+        border-radius: 30px;
+        border: 1px;
+        border-style: solid;
+        border-color: #000;
+        background-color: #000;
+        color: #fff;
+    }
+
+    .btn-add {
+        width: 130px;
+        border-radius: 30px;
+        border: 2px;
+        font-weight: 700px;
+        border-style: solid;
+        border-color: #000;
+        background-color: #000;
+        color: #fff;
+    }
+
+    .btn-add:hover {
+        width: 130px;
+        border-radius: 30px;
+        border: 2px;
+        font-weight: 700px;
+        border-style: solid;
+        border-color: #a4a4a4;
+        background-color: #a4a4a4;
+        color: #fff;
+    }
+
+    .icon-edit:hover {
+        color: #37c1f0;
+    }
+
+    .icon-del:hover {
+        color: #a11313;
     }
 </style>
 <div class="w-10/12 ml-3 bg-white border border-gray-200 rounded-2xl shadow-md max-h-80vh overflow-auto p-4">
@@ -41,7 +114,41 @@
         </ul>
     </div>
     @endif
-
+    <p class="col text-blueDark text-xl" style="font-size: 28px;">Manage Product</p>
+    <div class="row row-cols-1 row-cols-md-3 px-2 g-4">
+        @foreach($product as $pr)
+        <div class="card mt-4 mx-4" style="width: 16rem;border-radius:12px;">
+            <a href="detail/{{ $pr->id }}">
+                <div class="rounded"><img style="height:150px; object-fit:cover;border-radius:27px" src="/storage/{{ $pr->image }}" class="card-img-top p-4" alt="Product Image">
+                </div>
+                <div class="card-body">
+                    <p class="card-text" style="font-size: 18px;">{{ $pr->name }}</p>
+                    <div class="pb-1" style="font-weight: 700;">
+                        IDR {{ $pr->price }}
+                    </div>
+                    <hr class="mt-1">
+                    <div class="row d-flex py-2">
+                        <?php $trainer_info = App\Models\Trainer::find($pr->trainer); ?>
+                        <div class="col-sm-4">
+                            <img style="height: 40px;border-radius: 20px;object-fit:cover;width:40px;" src="/storage/{{ $trainer_info->image }}" alt="">
+                        </div>
+                        <div class="col-sm-8 my-auto">
+                            <p>{{$trainer_info->name}}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="d-flex mt-4" style="justify-content: end;">
+                        <a href="edit/{{ $pr->id }}" class="btn btn-edit" style="color:#fff !important">Edit</a>
+                        <a href="remove/{{ $pr->id }}" class="btn icon-del"><i class="fa-regular fa-trash-can" style="color: tomato;font-size:18px"></i></a>
+                    </div>
+                </div>
+            </a>
+        </div>
+        @endforeach
+    </div>
+    <div class="d-flex mt-4">
+        {{ $product->links('pagination::bootstrap-4') }}
+    </div>
 
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js"></script>

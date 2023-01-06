@@ -6,13 +6,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 </head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+    *,
+    html {
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .btn-reg {
+        color: #fff;
+        font-weight: 400;
+        width: 100%;
+        margin-top: 20px;
+        font-size: 16px;
+        border-radius: 12px;
+        background-color: #564b46;
+    }
+
+    .btn-reg:hover {
+        color: #fff;
+        font-weight: 400;
+        width: 100%;
+        font-size: 16px;
+        border-radius: 12px;
+        background-color: #876f61;
+    }
+    .btn-sign {
+        color: #564b46;
+        font-weight: 400;
+        border: solid 1px #564b46;
+        width: 100%;
+        margin-top: 20px;
+        font-size: 16px;
+        border-radius: 12px;
+        background-color: #fff;
+    }
+    .btn-sign:hover {
+        color: #fff;
+        font-weight: 400;
+        width: 100%;
+        font-size: 16px;
+        border-radius: 12px;
+        background-color: #876f61;
+    }
+</style>
 
 <body>
     <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
         <div class="container flex flex-wrap items-center justify-between mx-auto px-12">
             <a href="https://flowbite.com/" class="flex items-center">
-                <img src="{{ asset('images/condimend.png') }}" class="mr-3" style="height: 120px; width:100px;object-fit:cover;position:absolute" />
+                <img src="{{ asset('images/condimendlogo.png') }}" class="mr-3" style="width:100px;object-fit:cover;position:absolute" />
             </a>
             <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>
@@ -53,81 +101,55 @@
     </nav>
 
     <div>
-        <div class="flex space-x-1 h-full w-full px-16 pt-20 justify-center bg-repeat bg-10 bg-scroll bg-center" style="background-image: url({{ asset('images/car-tile.png') }})">
+        <div class="flex space-x-1 h-full w-full px-16 justify-center bg-repeat bg-10 bg-scroll bg-center" style="margin-top: 50px;">
             <div class="w-2/4 mr-8">
                 <div class="block max-w-xl p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                    <p class="mb-2 text-6xl font-bold font-fugaz tracking-tight text-blueDark dark:text-white">YUKPARKIR
+                    <p class="mb-2 text-6xl font-bold font-fugaz tracking-tight" style="color:#564b46">CONDIMEND
                     </p>
-                    <p class="text-blueDark font-bold text-4xl">Solusi pencarian <text class="text-orange">lahan
-                            parkir</text></p>
-                    <p class="mt-7 text-blueDark">Informasi dan rekomendasi lahan parkir terbaik berdasarkan lokasi yang
-                        dipilih.</p>
+                    <p class="font-bold text-4xl" style="color: #564b46;">Find your needs for good <text style="color:#c9a126">construction.</text></p>
+                    <p class="mt-7" style="color:#564b46">Information and recommendation for the best construction solutions.</p>
                 </div>
-                <div class="block max-w-xl p-6 mt-5 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                    <form action="{{ route('map.searchmap') }}" method="post">
-                        @csrf
-
-                        <input type="text" autocomplete="off" name="search" id="search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange focus:border-orange focus:outline-none block w-full py-5 px-3 text-center dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Lokasi, Kode Pos, ...">
-
-                        <button type="submit" class="mt-1 focus:outline-none text-white w-full bg-orange hover:bg-orange font-medium rounded-lg text-l mb-2 p-2 dark:focus:ring-yellow-900">Cari</button>
-
-                    </form>
-                    @if ($message = Session::get('failed'))
-                    <div class="p-4 mb-4 w-full text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
-                        {{ $message }}
-                    </div>
-                    @endif
-                    @if ($errors->has('login'))
-                    <div class="p-4 mb-4 w-full text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
-                        {{ $errors->first('login') }}
-                    </div>
-                    @endif
-                    <hr class="my-2 h-0.5 bg-grayDivide border-0">
-                    <a href="">
-                        <p class="text-center text-blueText text-lg">Cari menggunakan map interaktif</p>
-                    </a>
-                </div>
+                <a href=""><button type="button" style="margin-top:20px" class="btn btn-sign focus:outline-none rounded-lg text-sm px-5 py-4 font-bold mr-2 mb-2">Don't Missed Your Chance!</button></a>  
             </div>
             <div class="w-3/4">
-                <img src="{{ asset('images/car-illust.png') }}" alt="Car Illustrator" class="w-full h-full">
+                <img src="{{ asset('images/arci1.jpg') }}" class="w-full" style="height: 430px;object-fit:cover;border-radius:12px;">
             </div>
         </div>
-        <hr class="bg-gradient-to-t from-grayBackground to-white h-24 border-none">
     </div>
-    <div class="w-full h-auto bg-grayBackground pb-14">
+    <div class="w-full h-auto pb-14" style="background-color: #111111; margin-top:100px">
+        <hr class="bg-gradient-to-t from-grayBackground to-white h-24 border-none" style="background-color: #242424;">
         <div class="flex justify-center pt-8">
-            <div class="w-4/5">
+            <div class="w-4/5" style="background-color: #564b46;margin-top:-120px;border-radius:12px;padding:50px">
                 <div class="block p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                    <p class="text-blueDark text-6xl font-medium text-center">Fitur dan Kelebihan</p>
-                    <div class="flex justify-center items-center">
-                        <img src="{{ asset('images/car-icon-single.png') }}" alt="icon car" class="w-10 pr-2">
-                        <p class="text-blueDark text-2xl">52 tempat parkir</p>
+                    <p class="text-6xl font-medium text-center" style="color:#111111">Why Us?</p>
+                    <div class="flex justify-center items-center mt-3">
+                        <p class="text-2xl" style="color:#111111">Construction in demand</p>
                     </div>
                 </div>
                 <div class="flex justify-between flex-row flex-nowrap pt-14">
                     <div class="flex justify-center">
                         <div class="rounded-lg shadow-lg bg-white max-w-xs">
-                            <img class="rounded-t-lg" src="{{ asset('images/car-parking.png') }}" alt="" />
-                            <h5 class="text-gray-900 text-xl p-2 text-center font-medium bg-orange rounded-b-lg">
-                                Pencarian Lahan Parkir</h5>
+                            <img class="m-auto p-4" style="border-radius:10px !important; height:300px;width:250px;object-fit:cover;" src="{{ asset('images/detail3.jpg') }}" alt="" />
+                            <h5 style="font-size: 17px;" class="text-gray-900 text-xl p-2 text-center rounded-b-lg">
+                                Effective Design</h5>
                         </div>
                     </div>
                     <div class="flex justify-center">
                         <div class="rounded-lg shadow-lg bg-white max-w-xs">
-                            <img class="rounded-t-lg" src="{{ asset('images/priority.png') }}" alt="" />
-                            <h5 class="text-gray-900 text-xl p-2 text-center font-medium bg-orange rounded-b-lg">Parkir
-                                Prioritas</h5>
+                            <img class="m-auto p-4" style="border-radius:10px !important; height:300px;width:250px;object-fit:cover;" src="{{ asset('images/detail2.jpg') }}" alt="" />
+                            <h5 style="font-size: 17px;" class="text-gray-900 text-xl p-2 text-center rounded-b-lg">
+                                Affordable Price</h5>
                         </div>
                     </div>
                     <div class="flex justify-center">
                         <div class="rounded-lg shadow-lg bg-white max-w-xs">
-                            <img class="rounded-t-lg" src="{{ asset('images/location.png') }}" alt="" />
-                            <h5 class="text-gray-900 text-xl p-2 text-center font-medium bg-orange rounded-b-lg">
-                                Informasi Lokasi Publik</h5>
+                            <img class="m-auto p-4" style="border-radius:10px !important; height:300px;width:250px;object-fit:cover;" src="{{ asset('images/detail1.jpg') }}" alt="" />
+                            <h5 style="font-size: 17px;" class="text-gray-900 text-xl p-2 text-center rounded-b-lg">
+                                Elegant Interior Design</h5>
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-between flex-row flex-nowrap pt-14">
+                <!-- <div class="flex justify-between flex-row flex-nowrap pt-14">
                     <div class="flex justify-center">
                         <div class="rounded-lg shadow-lg bg-white w-max">
                             <img class="rounded-t-lg" src="{{ asset('images/mobile-pay.png') }}" alt="" />
@@ -149,21 +171,21 @@
                             </h5>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
-    <div class="w-full h-screen bg-blueDark pb-14 bg-repeat bg-scroll bg-center" style="background-image: url({{ asset('images/tile.png') }})">
-        <div class="flex justify-center pt-16 flex-col items-center">
-            <p class="text-center text-white text-3xl max-w-3xl">Anda pemiliki atau operator tempat parkir dan ingin
-                mempromosikan tempat parkir anda?</p>
-            <div class="bg-orange flex justify-center items-center w-2/4 h-96 mt-6">
-                Illustrasi pemilik / operator tempat parkir
+    <div class="w-full justify-center items-center" style="background-color: #111111;height:900px;">
+        <div class="flex justify-center py-12 flex-col items-center">
+            <p class="text-white" style="font-size: 30px;margin-top:100px">are you interested to know more about condimend?</p>
+            <div class="d-flex justify-center items-center w-2/4 h-96" style="margin-top: 30px;">
+                <img style="border-radius:12px" src="{{ asset('images/arci5.jpg') }}" alt="">
             </div>
-            <button type="button" class="focus:outline-none w-1/4 mt-8 bg-orange hover:bg-orange rounded-lg text-sm px-5 py-4 font-bold mr-2 mb-2 dark:focus:ring-yellow-900">Bergabung</button>
+          <a href="https://api.whatsapp.com/send?phone=6285894954819"><button type="button" style="width: 200px !important; margin-top:100px" class="btn btn-reg focus:outline-none rounded-lg text-sm px-5 py-4 font-bold mr-2 mb-2">Chat Us Now!</button></a>  
         </div>
     </div>
-    <div class="bg-blueDarker w-full h-auto">
+    <hr width="70%">
+    <div class="w-full h-auto" style="background-color: #111111;">
         <div class="flex justify-center py-12 flex-col items-center">
             <p class="text-white">Social Media</p>
             <div class="flex justify-center pt-4">

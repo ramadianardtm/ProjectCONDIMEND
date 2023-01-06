@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\RegParkir;
 use App\Models\AddProduct;
+use App\Models\Order;
 use App\Models\reservasi;
+use App\Models\Trainer;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -12,11 +14,12 @@ use Illuminate\Support\Facades\DB;
 
 class LoadController extends Controller
 {
-    function logout(){
+    function logout()
+    {
         Auth::logout();
         return redirect('/');
     }
-    
+
     function updateprofilepage()
     {
         $user = User::find(Auth::user()->id);
@@ -27,7 +30,7 @@ class LoadController extends Controller
         $user = User::find(Auth::user()->id);
         return view('pengelola.profile')->with('user', $user);
     }
-    function regtempatparkir()
+    function regproduct()
     {
         $parkir = RegParkir::find(Auth::user()->id);
 
@@ -48,11 +51,37 @@ class LoadController extends Controller
         return view('map.map')->with('parkir', $parkir);
     }
 
-    function manageproduct(){
-        $product = AddProduct::all();
+    function manageproduct(Request $request)
+    {
+        $search  = $request->search == null ? '' : $request->search;
+
+        $product = AddProduct::where('name', 'like', '%' . $search . '%')->paginate(12);
         // dd($product);
 
         return view('pengelola.product')->with('product', $product);
+    }
+
+    function deleteproduct($id)
+    {
+        $product = AddProduct::find($id);
+        $product->delete();
+
+        return view('pengelola.product');
+    }
+
+    function editproduct($id)
+    {
+        $product = AddProduct::find($id);
+        // dd($product);
+        return view('pengelola.editproduct')->with('product', $product);
+    }
+
+    function detailproduct($id)
+    {
+        $detail = AddProduct::find($id);
+        $user = User::find(Auth::user()->id);
+        // dd($product);
+        return view('user.detail')->with('detail', $detail)->with('user', $user);
     }
 
     function usergethome()
@@ -62,12 +91,21 @@ class LoadController extends Controller
         return view('user.homepage')->with('home', $home);
     }
 
+    function getproduct(Request $request)
+    {
+        $search  = $request->search == null ? '' : $request->search;
+
+        $product = AddProduct::where('name', 'like', '%' . $search . '%')->paginate(12);
+
+        return view('user.product')->with('product', $product);
+    }
+
     function getsearchparkir(Request $request)
     {
         $search  = $request->search == null ? '' : $request->search;
 
         $parkir = RegParkir::where('name', 'like', '%' . $search . '%')
-        ->orWhere('lokasi', 'like', '%' . $search . '%')->get();
+            ->orWhere('lokasi', 'like', '%' . $search . '%')->get();
 
         return view('map.searchmap')->with('parkir', $parkir);
     }
@@ -85,6 +123,13 @@ class LoadController extends Controller
         // dd($data);
 
         return view('map.reservasi', compact('data', 'id'));
+    }
+
+    function getuserorder()
+    {
+        $data = Order::all();
+
+        return view('pengelola.dashboard')->with('data', $data);
     }
 
     function getdashboardpengelola()
@@ -111,24 +156,12 @@ class LoadController extends Controller
 
     function getrekappengelola()
     {
-        $reserve = DB::table('reservasis');
+        $user = User::where('role', '=', 'member')->get();
+        $order = Order::all();
+        $trainer = Trainer::all();
+        $product = AddProduct::all();
 
-        $user = User::find(Auth::user()->id);
-        $parkir = reservasi::where('parkir_id', '=', Auth::user()->id)->get();
-
-
-        // $parkir = reservasi::all()->where('parkir_id', Auth::user()->id);
-
-        $data = $reserve
-            ->select('reservasis.*', 'reg_parkirs.slot')
-            ->leftJoin('reg_parkirs', 'reg_parkirs.id', 'reservasis.parkir_id')
-            ->leftJoin('users', 'users.id', 'reg_parkirs.user_id')
-            ->where('parkir_id', '=', Auth::user()->id)
-            ->get();
-
-        // dd($data);
-
-        return view('pengelola.rekap', ['rekap' => $data]);
+        return view('pengelola.rekap')->with('user',$user)->with('trainer',$trainer)->with('order',$order)->with('product',$product);
     }
 
     function admingetanalytics()
@@ -224,7 +257,13 @@ class LoadController extends Controller
 
         return view('admin.searchuser')->with('data', $data)->with('search', $search);
     }
+    function usergetorder()
+    {
+        $order = Order::where('user_id', '=', Auth::user()->id)->get();
+        // dd($order);
 
+        return view('user.order')->with('order', $order);
+    }
     function usergetreservasi()
     {
         $reserve = DB::table('reservasis');
@@ -234,7 +273,7 @@ class LoadController extends Controller
         // $parkir = reservasi::all()->where('parkir_id', Auth::user()->id);
 
         $data = $reserve
-            ->select('reservasis.*', 'reg_parkirs.name', 'reg_parkirs.image', 'reg_parkirs.lokasi','reg_parkirs.slot', 'users.saldo', 'users.name')
+            ->select('reservasis.*', 'reg_parkirs.name', 'reg_parkirs.image', 'reg_parkirs.lokasi', 'reg_parkirs.slot', 'users.saldo', 'users.name')
             ->leftJoin('reg_parkirs', 'reg_parkirs.id', 'reservasis.parkir_id')
             ->leftJoin('users', 'users.id', 'reservasis.user_id')
             ->where('reservasis.user_id', '=', Auth::user()->id)
@@ -247,23 +286,9 @@ class LoadController extends Controller
 
     function usergethistory()
     {
-        $reserve = DB::table('reservasis');
+        $order = Order::where('user_id', '=', Auth::user()->id)->get();
 
-        $user = User::find(Auth::user()->id);
-        $parkir = reservasi::where('user_id', '=', Auth::user()->id)->get();
-
-
-        // $parkir = reservasi::all()->where('parkir_id', Auth::user()->id);
-
-        $data = $reserve
-            ->select('reservasis.*', 'reg_parkirs.name', 'reg_parkirs.image', 'reg_parkirs.lokasi')
-            ->join('reg_parkirs', 'reg_parkirs.id', 'reservasis.parkir_id')
-            ->where('reservasis.user_id', '=', Auth::user()->id)
-            ->get();
-
-        //  dd($data);
-
-        return view('user.history', ['reservasis' => $data]);
+        return view('user.history')->with('order',$order);
     }
 
     function admingetriwayat()

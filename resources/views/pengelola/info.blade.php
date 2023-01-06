@@ -32,6 +32,23 @@
         border-radius: 10px;
         background-color: #D98829;
     }
+    .btn-reg {
+        color: #fff;
+        font-weight: 400;
+        width: 230px;
+        font-size: 16px;
+        border-radius: 10px;
+        background-color: #564b46;
+    }
+
+    .btn-reg:hover {
+        color: #fff;
+        font-weight: 400;
+        width: 230px;
+        font-size: 16px;
+        border-radius: 10px;
+        background-color: #876f61;
+    }
 </style>
 <div class="w-10/12 ml-3 bg-white border border-gray-200 rounded-2xl shadow-md max-h-80vh overflow-auto p-4">
     @if ($errors->any())

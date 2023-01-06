@@ -22,17 +22,45 @@
     }
 
     .btn-edit {
-        color: #183153;
+        color: #fff;
         font-weight: 400;
         width: 230px;
         font-size: 16px;
         border-radius: 10px;
-        background-color: #D98829;
+        background-color: #0bd18c;
+    }
+
+    .btn-edit:hover {
+        color: #fff;
+        font-weight: 400;
+        width: 230px;
+        font-size: 16px;
+        border-radius: 10px;
+        background-color: #0dffaa;
+    }
+
+    .btn-reg {
+        color: #fff;
+        font-weight: 400;
+        width: 230px;
+        font-size: 16px;
+        border-radius: 10px;
+        background-color: #564b46;
+    }
+
+    .btn-reg:hover {
+        color: #fff;
+        font-weight: 400;
+        width: 230px;
+        font-size: 16px;
+        border-radius: 10px;
+        background-color: #876f61;
     }
 </style>
 
 <div class="w-10/12 ml-3 bg-white border border-gray-200 rounded-2xl shadow-md max-h-80vh overflow-auto p-4">
-    <div class="mt-4">
+    <p class="col text-blueDark text-xl" style="font-size: 26px;">Edit Profile</p>
+    <div class="mt-4 px-3">
         <form action="" method="post" enctype="multipart/form-data">
             @csrf
             <div>
@@ -60,7 +88,7 @@
             </div>
 
             <div class="form-group mt-5" style="float: right;">
-                <button type="submit" class="btn btn-edit mx-2">Modifikasi</button>
+                <button type="submit" class="btn btn-reg mx-2">Update</button>
             </div>
 
         </form>
