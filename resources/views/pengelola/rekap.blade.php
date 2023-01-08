@@ -93,7 +93,9 @@
                                 <b>IDR {{ $order_info->price }}</b>
                             </td>
                             <td>
-                               <button style="border:solid 1px #564b46;border-radius:5px;padding-top:3px;padding-bottom:3px;padding-left:7px;padding-right:7px;"><p class="text-prim" style="font-size: 12px;">Trainer</p></button>
+                                <button style="border:solid 1px #564b46;border-radius:5px;padding-top:3px;padding-bottom:3px;padding-left:7px;padding-right:7px;">
+                                    <p class="text-prim" style="font-size: 12px;">Trainer</p>
+                                </button>
                                 <p>{{$trainer_info->name}}</p>
                             </td>
                             <td>

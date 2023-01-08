@@ -89,7 +89,26 @@
         border-radius: 10px;
         background-color: #876f61;
     }
+
+    .btn-order {
+        color: #fff;
+        font-weight: 400;
+        width: 180px;
+        font-size: 16px;
+        border-radius: 10px;
+        background-color: #564b46;
+    }
+
+    .btn-order:hover {
+        color: #fff;
+        font-weight: 400;
+        width: 180px;
+        font-size: 16px;
+        border-radius: 10px;
+        background-color: #876f61;
+    }
 </style>
+
 <div class="detail-container">
     <div class="home banner3 pt-2 mt-5" style="margin-bottom: 100px;">
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
@@ -110,20 +129,45 @@
 
                     @if (\Illuminate\Support\Facades\Auth::user()->role == 'member')
                     <?php $trainer_info = App\Models\Trainer::find($detail->trainer); ?>
-                    <form action="" method="post">
-                        @csrf
-                        <input type="hidden" name="trainer_id" id="trainer_id" value="{{$trainer_info->id}}">
-                        <input type="hidden" name="user_id" id="user_id" value="{{$user->id}}">
-                        <input type="hidden" name="price" id="price" value="{{$detail->price}}">
-                        <div class=" form-group mt-3">
-                            <button type="submit" class="btn btn-cart" style="margin-right: 10px;">Order Now</button>
+                    <!-- Popup modal Order -->
+                    <div class="modal fade" id="deletemodalpop" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Confirmation</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <a style="font-weight:bold;color:#564b46;">Your Order : </a>
+                                    <p style="font-size: 16px;">{{$detail->name}}</p>
+                                    <?php $trainer_info = App\Models\Trainer::find($detail->trainer); ?>
+                                    <p style="font-size: 16px;">Trainer : {{$trainer_info->name}}</p>
+                                    <p style="font-size: 16px;font-weight:bold;">IDR {{$detail->price}}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" style="border-radius: 10px;" data-dismiss="modal">Close</button>
+                                    <form action="" method="post">
+                                        @csrf
+                                        <input type="hidden" name="trainer_id" id="trainer_id" value="{{$trainer_info->id}}">
+                                        <input type="hidden" name="user_id" id="user_id" value="{{$user->id}}">
+                                        <input type="hidden" name="price" id="price" value="{{$detail->price}}">
+                                        <div class=" form-group mt-3">
+                                            <button type="submit" class="btn btn-order" style="margin-right: 10px;">Order Now</button>
+                                        </div>
+                                        @if ($errors->any())
+                                        <div class="alert-danger">
+                                            {{ $errors->first() }}
+                                        </div>
+                                        @endif
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                        @if ($errors->any())
-                        <div class="alert-danger">
-                            {{ $errors->first() }}
-                        </div>
-                        @endif
-                    </form>
+                    </div>
+                    <!-- Popup modal order -->
+                    <button type="button" class="btn btn-cart" style="margin-right: 10px;" data-toggle="modal" data-target="#deletemodalpop">Order Now</button>
                     @endif
                     @endif
                 </div>
@@ -158,7 +202,7 @@
                             <div class="col-sm-1">
                                 <b>:</b>
                             </div>
-                            <div class="col-sm-9" style="margin-left: -35px;">
+                            <div class="col-sm-9" style="margin-left: -35px;line-height: 27px;">
                                 {{ $trainer_info->detail }}
                             </div>
                         </div>

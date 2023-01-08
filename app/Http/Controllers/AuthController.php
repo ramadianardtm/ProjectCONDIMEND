@@ -32,7 +32,6 @@ class AuthController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->role = 'member';
-        $user->saldo = '50000';
         $user->save();
         // User::create([
         //     'email' => $request->email,
@@ -56,7 +55,7 @@ class AuthController extends Controller
         
 
         if ($validator->fails()) {
-            return redirect()->route('pengelola.regparkir')->withErrors($validator)->withInput();
+            return redirect()->route('pengelola.regproduct')->withErrors($validator)->withInput();
         }
 
         $addprod = new AddProduct();
@@ -72,7 +71,7 @@ class AuthController extends Controller
         $addprod->image = $image;
         $addprod->save();
 
-        return redirect()->route('pengelola.regparkir')->with('success', 'Registrasi berhasil.');
+        return redirect()->route('pengelola.regproduct')->with('success', 'Registrasi berhasil.');
     }
 
     function registertrainer(Request $request)
@@ -86,7 +85,7 @@ class AuthController extends Controller
         
 
         if ($validator->fails()) {
-            return redirect()->route('pengelola.regparkir')->withErrors($validator)->withInput();
+            return redirect()->route('pengelola.regproduct')->withErrors($validator)->withInput();
         }
 
         $addtrainer = new Trainer();
@@ -126,9 +125,6 @@ class AuthController extends Controller
         }
         if($user->role == "pengelola"){
             return redirect()->route('pengelola.dashboard');
-        }
-        if($user->role == "admin"){
-            return redirect()->route('admin.analytics');
         }
     }
 }

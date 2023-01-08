@@ -29,8 +29,8 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::post('register', [AuthController::class, 'register'])->name('register');
 
 Route::prefix('pengelola')->group(function () {
-    Route::get('/add-product', [LoadController::class, 'regproduct'])->name('pengelola.regparkir')->middleware('pengelolaonly');
-    Route::post('/add-product', [AuthController::class, 'doregisterproduct'])->name('pengelola.regparkir')->middleware('pengelolaonly');
+    Route::get('/add-product', [LoadController::class, 'regproduct'])->name('pengelola.regproduct')->middleware('pengelolaonly');
+    Route::post('/add-product', [AuthController::class, 'doregisterproduct'])->name('pengelola.regproduct')->middleware('pengelolaonly');
     Route::get('/trainer', [LoadController::class, 'trainer'])->name('pengelola.trainer')->middleware('pengelolaonly');
     Route::post('/trainer', [AuthController::class, 'registertrainer'])->name('pengelola.regtrainer')->middleware('pengelolaonly');
     Route::get('/manage-product', [LoadController::class, 'manageproduct'])->name('pengelola.product')->middleware('pengelolaonly');

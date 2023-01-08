@@ -82,7 +82,7 @@
                         <?php $trainer_info = App\Models\Trainer::find($pd->trainer_id); ?>
 
                         @if($pd->status == 'unconfirmed' && $pd->info == 'belummulai' )
-                        <tr id="sid{{ $pd->id }}" class="bg-white border border-gray-200 shadow-md overflow-auto" style="border-radius:12px;">
+                        <tr id="sid{{ $pd->id }}" class="bg-white border border-gray-200 rounded-2xl shadow-md overflow-auto">
                             <td><i class="fa-solid fa-user" style="font-size: 30px;padding-left:1px;"></i></td>
                             <td>{{ $user_info->name }}</td>
                             <td>{{ $order_info->name }}<br>
@@ -103,9 +103,7 @@
                                     <button class="btn btn-edit mx-2" type="submit" href="">Accept</button>
                                 </td>
                             </form>
-
                         </tr>
-
                         @endif
 
                         @endforeach

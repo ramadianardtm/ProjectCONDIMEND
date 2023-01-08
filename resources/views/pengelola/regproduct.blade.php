@@ -71,7 +71,7 @@
         </div>
         <div class="block w-full p-4 bg-white border border-gray-200 rounded-lg shadow-md mt-4">
             <div class="w-full flex justify-center">
-                <form action="{{ route('pengelola.regparkir') }}" method="POST" class="w-full" enctype="multipart/form-data">
+                <form action="{{ route('pengelola.regproduct') }}" method="POST" class="w-full" enctype="multipart/form-data">
                     @csrf
                     <div class="row text-left">
                         <div class="col-sm-12 mb-3">

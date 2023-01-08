@@ -151,7 +151,7 @@
     @if (\Illuminate\Support\Facades\Auth::user()->role == 'pengelola')
     <nav class="bg-white border-gray-200 px-2 py-3.5 rounded dark:bg-gray-900">
         <div class="container flex flex-wrap items-center justify-between mx-auto px-12">
-            <a href="{{ route('user.search') }}" class="flex items-center">
+            <a href="" class="flex items-center">
                 <img src="{{ asset('images/condimendlogo.png') }}" class="mr-3" style="width:100px;object-fit:cover;position:absolute;padding-top:10px;" />
             </a>
             <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
@@ -181,7 +181,7 @@
     <nav class="bg-white border-gray-200 px-2 py-3.5 rounded dark:bg-gray-900">
         <div class="row  flex flex-wrap items-center justify-between mx-4 px-12">
             <div class="col-sm-4">
-                <a href="{{ route('user.search') }}" class="flex items-center">
+                <a href="" class="flex items-center">
                     <img src="{{ asset('images/condimendlogo.png') }}" class="mr-3" style="width:100px;object-fit:cover;position:absolute;padding-top:10px;" />
                 </a>
             </div>
@@ -234,7 +234,7 @@
                         <i class="fa-solid fa-user-plus"></i>
                         <span class="truncate">&nbsp;&nbsp; Add Trainer </span>
                     </a>
-                    <a href="{{ route('pengelola.regparkir') }}" class="hover:bg-grayBackground hover:text-blueDark flex items-center pl-3.5 py-2 text-base rounded-lg {{ Route::is('pengelola.regparkir') ? 'bg-grayBackground text-blueDark' : ''}}" aria-current="page">
+                    <a href="{{ route('pengelola.regproduct') }}" class="hover:bg-grayBackground hover:text-blueDark flex items-center pl-3.5 py-2 text-base rounded-lg {{ Route::is('pengelola.regparkir') ? 'bg-grayBackground text-blueDark' : ''}}" aria-current="page">
                         <i class="fas fa-plus"></i>
                         <span class="truncate" style="margin-left: 5px;">&nbsp;&nbsp; Add Product </span>
                     </a>
@@ -257,32 +257,6 @@
                         <span class="truncate">&nbsp;&nbsp; Profile </span>
                     </a>
                 </nav>
-                @elseif (\Illuminate\Support\Facades\Auth::user()->role == 'admin')
-                <nav class="space-y-1" aria-label="Sidebar">
-                    <a href="{{ route('admin.analytics') }}" class="hover:bg-grayBackground hover:text-blueDark flex items-center pl-3.5 py-2 text-base rounded-lg {{ Route::is('admin.analytics') ? 'bg-grayBackground text-blueDark' : ''}}" aria-current="page">
-                        <i class="fas fa-book-open"></i>
-                        <span class="truncate">&nbsp;&nbsp; Analytics </span>
-                    </a>
-                    <a href="{{ route('admin.transaksi') }}" class="hover:bg-grayBackground hover:text-blueDark flex items-center pl-3.5 py-2 text-base rounded-lg {{ Route::is('admin.transaksi') ? 'bg-grayBackground text-blueDark' : ''}}" aria-current="page">
-                        <i class="fa-solid fa-pencil"></i>
-                        <span class="truncate">&nbsp;&nbsp; Transaksi </span>
-                    </a>
-
-                    <a href="{{ route('admin.riwayat') }}" class="hover:bg-grayBackground hover:text-blueDark flex items-center pl-3.5 py-2 text-base rounded-lg {{ Route::is('admin.riwayat') ? 'bg-grayBackground text-blueDark' : ''}}" aria-current="page">
-                        <i class="fa-solid fa-book"></i>
-                        <span class="truncate">&nbsp;&nbsp; Riwayat </span>
-                    </a>
-
-                    <a href="{{ route('admin.user') }}" class="hover:bg-grayBackground hover:text-blueDark flex items-center pl-3.5 py-2 text-base rounded-lg {{ Route::is('admin.user') ? 'bg-grayBackground text-blueDark' : ''}}" aria-current="page">
-                        <i class="fas fa-user"></i>
-                        <span class="truncate">&nbsp;&nbsp; User </span>
-                    </a>
-                    <a href="{{ route('admin.pengelola') }}" class="hover:bg-grayBackground hover:text-blueDark flex items-center pl-3.5 py-2 text-base rounded-lg {{ Route::is('admin.pengelola') ? 'bg-grayBackground text-blueDark' : ''}}" aria-current="page">
-                        <i class="fa-solid fa-briefcase"></i>
-                        <span class="truncate">&nbsp;&nbsp; Pengelola </span>
-                    </a>
-                </nav>
-
                 @endif
                 @endif
             </div>
