@@ -79,7 +79,7 @@
 <div class="w-12/12 bg-white shadow-md overflow-auto" style="margin-top: 30px;">
     <div class="home justify-content-center text-center">
         <h3 class="display-4">Level Up Your</h3>
-        <h3 class="display-4 pb-2">Product & Life.</h3>
+        <h3 class="display-4 pb-2">Construction & Life.</h3>
     </div>
     <div class="home banner text-center">
         <img src="{{ asset('images/arci5.jpg') }}" style="width: 100%;height:400px;object-fit:cover;border-radius:8px;">

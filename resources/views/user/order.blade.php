@@ -74,7 +74,7 @@
                     <input type="hidden" id="id" name="id" value="{{$pd->id}}">
                     <input type="hidden" id="info" name="info" value="nonaktif">
                     <button type="submit" class="btn btn-edit text-center py-3 rounded-lg w-100" style="cursor: pointer;width:130px">
-                        Selesai
+                        Finish Order
                     </button>
                 </form>
             </div>

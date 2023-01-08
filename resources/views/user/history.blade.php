@@ -45,7 +45,7 @@
 </style>
 <div class="home p-4 bg-white my-4">
 
-    <p class="text-prim text-xl" style="font-size: 25px;">Your Orders</p>
+    <p class="text-prim text-xl" style="font-size: 25px;">Your Order History</p>
 
     @if($order->count() == 0)
     <div class="text-center" style="padding: 60px;margin-bottom:50px;">
