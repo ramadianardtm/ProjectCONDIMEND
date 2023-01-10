@@ -248,6 +248,16 @@
                         <span class="truncate">&nbsp;&nbsp; Manage Product </span>
                     </a>
 
+                    <a href="{{ route('pengelola.managetrainer') }}" class="hover:bg-grayBackground hover:text-blueDark flex items-center pl-3.5 py-2 text-base rounded-lg {{ Route::is('pengelola.managetrainer') ? 'bg-grayBackground text-blueDark' : ''}}" aria-current="page">
+                        <i class="fa-solid fa-users"></i>
+                        <span class="truncate">&nbsp;&nbsp; Manage Trainer </span>
+                    </a>
+
+                    <a href="{{ route('pengelola.managecustomers') }}" class="hover:bg-grayBackground hover:text-blueDark flex items-center pl-3.5 py-2 text-base rounded-lg {{ Route::is('pengelola.managecustomers') ? 'bg-grayBackground text-blueDark' : ''}}" aria-current="page">
+                        <i class="fa-solid fa-users-rectangle"></i>
+                        <span class="truncate">&nbsp;&nbsp; Manage Users </span>
+                    </a>
+
                     <a href="{{ route('pengelola.rekap') }}" class="hover:bg-grayBackground hover:text-blueDark flex items-center pl-3.5 py-2 text-base rounded-lg {{ Route::is('pengelola.rekap') ? 'bg-grayBackground text-blueDark' : ''}}" aria-current="page">
                         <i class="fas fa-book"></i>
                         <span class="truncate">&nbsp;&nbsp; Rekap </span>

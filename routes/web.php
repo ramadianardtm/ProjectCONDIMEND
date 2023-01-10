@@ -34,9 +34,17 @@ Route::prefix('pengelola')->group(function () {
     Route::get('/trainer', [LoadController::class, 'trainer'])->name('pengelola.trainer')->middleware('pengelolaonly');
     Route::post('/trainer', [AuthController::class, 'registertrainer'])->name('pengelola.regtrainer')->middleware('pengelolaonly');
     Route::get('/manage-product', [LoadController::class, 'manageproduct'])->name('pengelola.product')->middleware('pengelolaonly');
+    Route::get('/manage-trainer', [LoadController::class, 'managetrainer'])->name('pengelola.managetrainer')->middleware('pengelolaonly');
+    Route::get('/manage-customers', [LoadController::class, 'managecustomers'])->name('pengelola.managecustomers')->middleware('pengelolaonly');
     Route::get('edit/{id}', [LoadController::class, 'editproduct'])->middleware('pengelolaonly');
     Route::post('edit/{id}', [CrudController::class, 'updateproduct'])->middleware('pengelolaonly');
     Route::get('remove/{id}', [LoadController::class, 'deleteproduct'])->middleware('pengelolaonly');
+    Route::get('edit-trainer/{id}', [LoadController::class, 'edittrainer'])->middleware('pengelolaonly');
+    Route::post('edit-trainer/{id}', [CrudController::class, 'updatetrainer'])->middleware('pengelolaonly');
+    Route::get('remove-trainer/{id}', [LoadController::class, 'deletetrainer'])->middleware('pengelolaonly');
+    Route::get('edit-user/{id}', [LoadController::class, 'edituser'])->middleware('pengelolaonly');
+    Route::post('edit-user/{id}', [CrudController::class, 'updatecustomer'])->middleware('pengelolaonly');
+    Route::get('remove-user/{id}', [LoadController::class, 'deletecustomer'])->middleware('pengelolaonly');
 
     Route::get('/dashboard', [LoadController::class, 'getuserorder'])->name('pengelola.dashboard')->middleware('pengelolaonly');
     Route::post('/dashboard', [CrudController::class, 'pengelolaupdate'])->name('pengelola.update');

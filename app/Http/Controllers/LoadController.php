@@ -57,6 +57,16 @@ class LoadController extends Controller
         return view('pengelola.product')->with('product', $product);
     }
 
+    function managetrainer(Request $request)
+    {
+        $search  = $request->search == null ? '' : $request->search;
+
+        $trainer = Trainer::where('name', 'like', '%' . $search . '%')->paginate(12);
+        // dd($product);
+
+        return view('pengelola.trainer')->with('trainer', $trainer);
+    }
+
     function deleteproduct($id)
     {
         $product = AddProduct::find($id);
@@ -65,11 +75,48 @@ class LoadController extends Controller
         return redirect()->route('pengelola.product');
     }
 
+    function deletetrainer($id)
+    {
+        $trainer = Trainer::find($id);
+        $trainer->delete();
+
+        return redirect()->route('pengelola.managetrainer');
+    }
+
+    function deletecustomer($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+
+        return redirect()->route('pengelola.managecustomers');
+    }
+
+    function managecustomers()
+    {
+        $data = User::where('role', '=', 'member')->get();
+
+        return view('pengelola.managecustomer')->with('data',$data);
+    }
+
     function editproduct($id)
     {
         $product = AddProduct::find($id);
         // dd($product);
         return view('pengelola.editproduct')->with('product', $product);
+    }
+
+    function edittrainer($id)
+    {
+        $trainer = Trainer::find($id);
+        // dd($product);
+        return view('pengelola.edittrainer')->with('trainer', $trainer);
+    }
+
+    function edituser($id)
+    {
+        $user = User::find($id);
+        // dd($product);
+        return view('pengelola.edituser')->with('user', $user);
     }
 
     function detailproduct($id)

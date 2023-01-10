@@ -6,6 +6,7 @@ use App\Models\AddProduct;
 use App\Models\Order;
 use App\Models\RegParkir;
 use App\Models\reservasi;
+use App\Models\Trainer;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -68,6 +69,49 @@ class CrudController extends Controller
         $product->save();
 
         return redirect()->route('pengelola.dashboard');
+    }
+
+    function updatetrainer(Request $request, $id)
+    {
+        $trainer = Trainer::find($id);
+        $request->validate([
+            'name' => 'required|max:255',
+            'detail' => 'required',
+            'special' => 'required',
+        ]);
+        if ($request->image) {
+            $image = str_replace(' ', '-', $request->name) . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->image->storeAs(
+                '\public\\',
+                $image
+            );
+
+            $trainer->image = $image;
+        }
+
+        $trainer->name = $request->name;
+        $trainer->detail = $request->detail;
+        $trainer->special = $request->special;
+
+        $trainer->save();
+
+        return redirect()->route('pengelola.dashboard');
+    }
+
+    function updatecustomer(Request $request, $id)
+    {
+        $user = User::find($id);
+        $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required',
+        ]);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        $user->save();
+
+        return redirect()->route('pengelola.managecustomers');
     }
 
     function pengelolaupdate (Request $request)
