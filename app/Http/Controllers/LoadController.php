@@ -62,7 +62,7 @@ class LoadController extends Controller
         $product = AddProduct::find($id);
         $product->delete();
 
-        return view('pengelola.product');
+        return redirect()->route('pengelola.product');
     }
 
     function editproduct($id)
